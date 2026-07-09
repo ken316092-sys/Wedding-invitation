@@ -186,6 +186,13 @@ section > *:not(.floral){position:relative;z-index:1;}
 .photo-ph svg{opacity:.6;}
 .photo-ph small{letter-spacing:.2em;font-size:.8rem;}
 .photo-ph.landscape{aspect-ratio:3/2;}
+.venue-photo{
+  margin:10px auto 30px;width:min(560px,92vw);aspect-ratio:3/2;
+  border:1px solid var(--gold-light);
+  outline:1px solid var(--gold-light);outline-offset:8px;
+  overflow:hidden;box-shadow:0 20px 46px rgba(58,39,82,.18);
+}
+.venue-photo img{width:100%;height:100%;object-fit:cover;display:block;}
 .hero-video-frame{
   margin:48px auto 0;width:min(360px,82vw);aspect-ratio:9/16;
   border:1px solid var(--gold-light);
@@ -510,17 +517,12 @@ footer{
     <div class="eyebrow">Location</div>
     <h2 style="font-weight:600;letter-spacing:.2em;">婚禮地點</h2>
     <div class="divider"><svg viewBox="-14 -14 28 28"><use href="#bloom"/></svg></div>
-    <div class="photo-ph landscape" style="margin-top:10px;margin-bottom:30px;">
-      <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
-        <rect x="3" y="5" width="18" height="14" rx="2"/>
-        <circle cx="9" cy="10" r="2"/>
-        <path d="M3 17l5-5 4 4 3-3 6 6"/>
-      </svg>
-      <small>場地相片（後補）</small>
+    <div class="venue-photo">
+      <img src="venue-fantasybox-web.jpg" alt="Fantasy Box 場地佈置">
     </div>
-    <div class="venue-name">場地名稱（待定）</div>
-    <div class="venue-addr">地址：澳門 ＿＿＿＿＿＿＿＿＿＿<br>（場地確定後更新）</div>
-    <a class="map-btn" href="https://maps.google.com" target="_blank" rel="noopener">查看地圖</a>
+    <div class="venue-name">Fantasy Box</div>
+    <div class="venue-addr">澳門美高梅酒店<br>MGM Macau</div>
+    <a class="map-btn" href="https://maps.google.com/?q=MGM+Macau" target="_blank" rel="noopener">查看地圖</a>
   </section>
 
   <!-- 心意 -->
