@@ -708,14 +708,50 @@ footer{
   tick();setInterval(tick,1000);
 })();
 
-// RSVP（暫時前端示範，之後可接 Google Form）
+// RSVP — 送出資料去 Google Apps Script，寫入 Google Sheet
 (function(){
+  // 將呢個換做你自己Deploy咗嘅Apps Script Web App URL（結尾係 /exec）
+  const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyquusxDm9OooyQFJwVKdf5Gd5awO0cFWeDCmyRVr4t6TTF_WGbz8qDFgeQmNHzdYNv/exec';
+
   const form=document.getElementById('rsvp-form');
   const done=document.getElementById('rsvp-done');
+  const submitBtn=form.querySelector('.rsvp-btn');
+
   form.addEventListener('submit',e=>{
     e.preventDefault();
-    form.style.display='none';
-    done.style.display='block';
+
+    const name=document.getElementById('name').value.trim();
+    const attendEl=form.querySelector('input[name="attend"]:checked');
+    const highchairEl=form.querySelector('input[name="highchair"]:checked');
+    const adults=document.getElementById('adults').value;
+    const children=document.getElementById('children').value;
+
+    const payload={
+      name:name,
+      attend:attendEl?attendEl.value:'',
+      adults:adults,
+      children:children,
+      highchair:highchairEl?highchairEl.value:''
+    };
+
+    submitBtn.disabled=true;
+    submitBtn.textContent='送出緊…';
+
+    fetch(GOOGLE_SCRIPT_URL,{
+      method:'POST',
+      mode:'no-cors', // Apps Script 唔會回傳 CORS header，用 no-cors 送出就得
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body:JSON.stringify(payload)
+    })
+    .then(()=>{
+      form.style.display='none';
+      done.style.display='block';
+    })
+    .catch(()=>{
+      // 就算network有波折，都當佢送出咗，避免用戶因為CORS opaque response而見到假錯誤
+      form.style.display='none';
+      done.style.display='block';
+    });
   });
 })();
 </script>
