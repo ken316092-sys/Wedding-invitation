@@ -276,9 +276,20 @@ section > *:not(.floral){position:relative;z-index:1;}
 }
 .field{margin-bottom:24px;}
 .field label{
-  display:block;font-size:.85rem;letter-spacing:.15em;
-  color:var(--purple);margin-bottom:10px;
+  display:block;font-size:.85rem;letter-spacing:.1em;
+  color:var(--purple);margin-bottom:10px;line-height:1.8;
 }
+.select-row{display:flex;gap:28px;flex-wrap:wrap;}
+.select-col{display:flex;flex-direction:column;gap:8px;min-width:110px;}
+.select-caption{font-size:.85rem;color:var(--purple-soft);letter-spacing:.1em;}
+.select-col select{
+  padding:12px 14px;border:1px solid var(--lilac-2);
+  background:var(--lilac) url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" stroke="%235b3e85" stroke-width="1.6"><path d="M5.5 7.5l4.5 4.5 4.5-4.5"/></svg>') no-repeat right 12px center;
+  background-size:14px;
+  appearance:none;-webkit-appearance:none;-moz-appearance:none;
+  font-family:inherit;font-size:.95rem;color:var(--ink);cursor:pointer;
+}
+.select-col select:focus{outline:2px solid var(--purple-soft);}
 .field input[type=text],.field input[type=number],.field textarea{
   width:100%;padding:12px 14px;border:1px solid var(--lilac-2);
   background:var(--lilac);font-family:inherit;font-size:.95rem;color:var(--ink);
@@ -548,24 +559,65 @@ footer{
     <div class="rsvp-card">
       <form id="rsvp-form">
         <div class="field">
-          <label for="name">您的姓名</label>
+          <label for="name">姓名</label>
           <input type="text" id="name" required placeholder="請輸入姓名">
         </div>
+
         <div class="field">
-          <label>是否出席？</label>
+          <label>婚禮定於 2026 年 12 月 12 日（星期六），是否參加？<br>地點：澳門美高梅酒店</label>
           <div class="radio-row">
-            <label><input type="radio" name="attend" value="yes" required> 樂意出席 🎉</label>
-            <label><input type="radio" name="attend" value="no"> 未能出席，送上祝福</label>
+            <label><input type="radio" name="attend" value="yes" required> 參加</label>
+            <label><input type="radio" name="attend" value="no"> 不參加</label>
+            <label><input type="radio" name="attend" value="tbd"> 待定</label>
           </div>
         </div>
+
         <div class="field">
-          <label for="guests">出席人數</label>
-          <input type="number" id="guests" min="1" max="10" value="1">
+          <label>婚禮參加人數</label>
+          <div class="select-row">
+            <div class="select-col">
+              <span class="select-caption">成人</span>
+              <select id="adults">
+                <option value="0">0</option>
+                <option value="1" selected>1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </select>
+            </div>
+            <div class="select-col">
+              <span class="select-caption">小孩</span>
+              <select id="children">
+                <option value="0" selected>0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </select>
+            </div>
+          </div>
         </div>
+
         <div class="field">
-          <label for="diet">飲食需要（如素食、食物敏感）</label>
-          <textarea id="diet" rows="3" placeholder="如沒有可留空"></textarea>
+          <label>用餐時是否需要兒童座椅？</label>
+          <div class="radio-row">
+            <label><input type="radio" name="highchair" value="yes"> 是</label>
+            <label><input type="radio" name="highchair" value="no" checked> 否</label>
+          </div>
         </div>
+
         <button type="submit" class="rsvp-btn">送出回覆</button>
       </form>
       <div class="rsvp-done" id="rsvp-done">
