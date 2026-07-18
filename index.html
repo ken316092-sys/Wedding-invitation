@@ -6,7 +6,7 @@
 <title>Vanessa & Ken — 婚禮邀請函</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+TC:wght@400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+TC:wght@400;500;600&family=Great+Vibes&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
 :root{
   --purple-deep:#3a2752;
@@ -18,14 +18,17 @@
   --gold-light:#d7c08f;
   --ink:#2e2440;
   --white:#fffdfa;
+  --font-cn:'翩翩體-簡','翩翩体-简','Ma Shan Zheng','標楷體','DFKai-SB','BiauKai','KaiTi','STKaiti','Noto Serif TC',serif;
+  --font-en:'Cormorant Garamond',serif;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 body{
-  font-family:'Noto Serif TC','Cormorant Garamond',serif;
+  font-family:var(--font-cn);
   background:var(--lilac);
   color:var(--ink);
   overflow-x:hidden;
+  line-height:1.5;
 }
 body.locked{overflow:hidden;height:100vh;}
 
@@ -66,10 +69,15 @@ body.locked{overflow:hidden;height:100vh;}
 .env-card{
   position:absolute;left:6%;right:6%;top:8%;bottom:8%;
   background:var(--white);border-radius:4px;
-  display:flex;align-items:center;justify-content:center;
-  font-family:'Great Vibes',cursive;font-size:1.6rem;color:var(--purple);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  font-family:'Great Vibes',cursive;font-size:1.5rem;color:var(--purple);
   transition:transform 1s ease .6s;
   z-index:1;
+}
+.env-card small{
+  font-family:var(--font-cn);
+  font-size:.72rem;color:var(--purple-soft);letter-spacing:.15em;
+  margin-top:6px;
 }
 .envelope.open .env-card{transform:translateY(-26%);}
 .wax-seal{
@@ -89,7 +97,7 @@ body.locked{overflow:hidden;height:100vh;}
   border:1.5px solid rgba(215,192,143,.65);
 }
 .wax-seal span{
-  font-family:'Cormorant Garamond',serif;font-weight:600;
+  font-family:var(--font-en);font-weight:600;
   font-size:1.5rem;color:var(--gold-light);letter-spacing:.05em;
 }
 @keyframes sealPulse{0%,100%{transform:translate(-50%,-46%) scale(1);}50%{transform:translate(-50%,-46%) scale(1.05);}}
@@ -106,7 +114,7 @@ body.locked{overflow:hidden;height:100vh;}
 @keyframes hintFade{0%,100%{opacity:.45;}50%{opacity:1;}}
 .env-names{
   margin-bottom:34px;text-align:center;color:var(--gold-light);
-  font-family:'Cormorant Garamond',serif;
+  font-family:var(--font-en);
   letter-spacing:.5em;text-indent:.5em;font-size:.9rem;text-transform:uppercase;
 }
 
@@ -115,9 +123,14 @@ main{opacity:0;transition:opacity 1.4s ease .4s;}
 main.show{opacity:1;}
 section{padding:90px 24px;max-width:680px;margin:0 auto;text-align:center;}
 .eyebrow{
-  font-family:'Cormorant Garamond',serif;
-  letter-spacing:.45em;text-indent:.45em;font-size:.78rem;
+  font-family:var(--font-en);
+  letter-spacing:.2em;text-indent:.2em;font-size:1rem;
   color:var(--gold);text-transform:uppercase;margin-bottom:18px;
+}
+.eyebrow-cn{
+  font-family:var(--font-cn);font-weight:600;
+  letter-spacing:.3em;text-indent:.3em;font-size:1rem;
+  color:var(--gold);margin-bottom:6px;
 }
 .divider{
   width:150px;height:26px;margin:24px auto;position:relative;
@@ -145,7 +158,7 @@ section{position:relative;}
 }
 section > *:not(.floral){position:relative;z-index:1;}
 .hero-flourish{
-  display:flex;justify-content:center;margin-bottom:6px;
+  display:flex;justify-content:center;margin-top:40px;margin-bottom:6px;
 }
 .hero-flourish svg{width:min(260px,64vw);height:auto;}
 .footer-flourish{display:flex;justify-content:center;margin-bottom:22px;}
@@ -166,15 +179,26 @@ section > *:not(.floral){position:relative;z-index:1;}
   color:var(--purple);line-height:1.25;
 }
 .hero-amp{
-  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-family:var(--font-en);
   color:var(--gold);font-size:clamp(1.6rem,5vw,2.2rem);
   display:block;margin:4px 0;
 }
 .hero-date{
-  margin-top:30px;font-family:'Cormorant Garamond',serif;
-  font-size:1.35rem;letter-spacing:.5em;text-indent:.5em;color:var(--ink);
+  margin-top:30px;font-family:var(--font-en);font-weight:600;
+  font-size:clamp(2rem,7vw,2.6rem);letter-spacing:.4em;text-indent:.4em;color:var(--ink);
 }
 .hero-sub{margin-top:10px;font-size:.95rem;color:var(--purple-soft);letter-spacing:.2em;text-indent:.2em;}
+.en-sub{
+  display:block;font-family:var(--font-en);
+  font-size:1em;color:var(--purple-soft);letter-spacing:.02em;
+  margin-top:6px;text-indent:0;
+}
+.en-sub.on-dark{color:rgba(255,253,250,.65);}
+.inline-en{
+  font-family:var(--font-en);
+  font-size:1em;color:var(--purple-soft);margin-left:5px;
+}
+.radio-row label .inline-en{margin-left:4px;}
 .photo-ph{
   margin:48px auto 0;width:min(420px,86vw);aspect-ratio:4/5;
   border:1px solid var(--gold-light);
@@ -187,14 +211,14 @@ section > *:not(.floral){position:relative;z-index:1;}
 .photo-ph small{letter-spacing:.2em;font-size:.8rem;}
 .photo-ph.landscape{aspect-ratio:3/2;}
 .venue-photo{
-  margin:10px auto 30px;width:min(560px,92vw);aspect-ratio:3/2;
+  margin:10px auto 30px;width:min(560px,92vw);aspect-ratio:1105/677;
   border:1px solid var(--gold-light);
   outline:1px solid var(--gold-light);outline-offset:8px;
   overflow:hidden;box-shadow:0 20px 46px rgba(58,39,82,.18);
 }
 .venue-photo img{width:100%;height:100%;object-fit:cover;display:block;}
 .hero-video-frame{
-  margin:48px auto 0;width:min(360px,82vw);aspect-ratio:9/16;
+  margin:24px auto 0;width:min(360px,82vw);aspect-ratio:9/16;
   border:1px solid var(--gold-light);
   outline:1px solid var(--gold-light);outline-offset:8px;
   overflow:hidden;background:#000;
@@ -220,10 +244,15 @@ section > *:not(.floral){position:relative;z-index:1;}
 }
 .count-item{min-width:64px;}
 .count-num{
-  font-family:'Cormorant Garamond',serif;font-weight:500;
+  font-family:var(--font-en);font-weight:500;
   font-size:clamp(2.4rem,9vw,3.6rem);line-height:1;color:var(--white);
 }
 .count-label{margin-top:8px;font-size:.78rem;letter-spacing:.25em;text-indent:.25em;color:var(--gold-light);}
+.count-label .count-label-en{
+  display:block;margin-top:4px;font-size:1em;letter-spacing:.1em;text-indent:.1em;
+  font-family:var(--font-en);color:rgba(255,253,250,.65);
+  text-transform:uppercase;
+}
 .count-colon{font-size:clamp(1.8rem,6vw,2.6rem);color:rgba(255,253,250,.45);align-self:flex-start;line-height:1.3;}
 
 /* 流程 */
@@ -235,17 +264,13 @@ section > *:not(.floral){position:relative;z-index:1;}
 }
 .sch-item:first-child{border-top:1px solid var(--lilac-2);}
 .sch-time{
-  font-family:'Cormorant Garamond',serif;font-size:1.45rem;
+  font-family:var(--font-en);font-size:1.45rem;
   color:var(--purple);min-width:84px;font-weight:500;
 }
 .sch-name{font-size:1.02rem;letter-spacing:.08em;}
 .sch-note{margin-left:auto;font-size:.82rem;color:var(--purple-soft);}
 
 /* 地點 */
-.venue-name{
-  font-family:'Noto Serif TC',serif;font-weight:600;
-  font-size:1.5rem;color:var(--purple);margin-top:8px;letter-spacing:.1em;
-}
 .venue-addr{margin-top:14px;line-height:1.9;color:var(--ink);font-size:.96rem;}
 .map-btn{
   display:inline-block;margin-top:26px;padding:13px 38px;
@@ -313,6 +338,7 @@ section > *:not(.floral){position:relative;z-index:1;}
   color:var(--purple);line-height:2;
 }
 .rsvp-deadline{margin-top:14px;font-size:.85rem;color:var(--purple-soft);letter-spacing:.1em;}
+.rsvp-gift{margin-top:56px;}
 
 /* 結尾 */
 footer{
@@ -324,7 +350,7 @@ footer{
   font-family:'Great Vibes',cursive;font-size:2.4rem;color:var(--white);
 }
 .footer-thanks{margin-top:18px;letter-spacing:.3em;text-indent:.3em;font-size:.85rem;}
-.footer-date{margin-top:30px;font-family:'Cormorant Garamond',serif;letter-spacing:.4em;text-indent:.4em;font-size:.8rem;opacity:.7;}
+.footer-date{margin-top:30px;font-family:var(--font-en);letter-spacing:.4em;text-indent:.4em;font-size:.8rem;opacity:.7;}
 
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important;}
@@ -458,15 +484,15 @@ footer{
 <div id="envelope-screen">
   <div class="env-stars" id="stars"></div>
   <div class="env-names">Vanessa &nbsp;·&nbsp; Ken</div>
-  <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="點擊開啟邀請函">
+  <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="點擊開啟邀請函 Tap to open">
     <div class="env-flap"></div>
-    <div class="env-card">You're Invited</div>
+    <div class="env-card">You're Invited<small>誠邀您的蒞臨</small></div>
     <div class="env-body"></div>
     <div class="env-floral tl"><svg viewBox="0 0 130 130"><use href="#corner-branch"/></svg></div>
     <div class="env-floral br"><svg viewBox="0 0 130 130"><use href="#corner-branch"/></svg></div>
     <div class="wax-seal"><span>V·K</span></div>
   </div>
-  <div class="env-hint">輕觸印章 開啟邀請函</div>
+  <div class="env-hint">輕觸印章 開啟邀請函<span class="en-sub on-dark" style="text-align:center;letter-spacing:.15em;">Tap the Seal to Open</span></div>
 </div>
 
 <main id="main">
@@ -475,7 +501,11 @@ footer{
   <section id="hero">
     <div class="floral floral-corner fc-tl"><svg viewBox="0 0 130 130"><use href="#corner-branch"/></svg></div>
     <div class="floral floral-corner fc-tr"><svg viewBox="0 0 130 130"><use href="#corner-branch"/></svg></div>
-    <div class="eyebrow">Wedding Invitation</div>
+
+    <div class="hero-video-frame">
+      <video id="hero-video" src="hero-video.mp4" poster="hero-poster.jpg" playsinline controls preload="metadata"></video>
+    </div>
+
     <div class="hero-flourish"><svg viewBox="0 0 260 40"><use href="#flourish"/></svg></div>
     <h1 class="hero-script">
       Vanessa
@@ -484,22 +514,38 @@ footer{
     </h1>
     <div class="divider"><svg viewBox="-14 -14 28 28"><use href="#bloom"/></svg></div>
     <div class="hero-date">12 · 12 · 2026</div>
-    <div class="hero-sub">星期六 ｜ 誠邀您見證我們的大喜之日</div>
-
-    <div class="hero-video-frame">
-      <video id="hero-video" src="hero-video.mp4" poster="hero-poster.jpg" playsinline controls preload="metadata"></video>
-    </div>
+    <div class="hero-sub">星期六 ｜ 誠邀您見證我們的大喜之日<span class="en-sub" style="text-align:center;">Saturday ｜ Cordially Inviting You to Our Tender Wedding</span></div>
   </section>
 
   <!-- 邀請語 -->
   <section>
     <div class="floral floral-wm"><svg viewBox="0 0 200 200"><use href="#wreath"/></svg></div>
-    <div class="eyebrow">Our Invitation</div>
     <div class="divider"><svg viewBox="-14 -14 28 28"><use href="#bloom"/></svg></div>
     <div class="invite-text">
-      <p>親愛的家人與摯友：</p>
-      <p>在我們即將攜手步入人生新一章之際，<br>最希望的，是與一直支持和愛護我們的您，<br>一同分享這份喜悅。</p>
-      <p>誠摯邀請您出席我們的婚禮，<br>見證我們許下一生的承諾。</p>
+      <p>
+        親愛的您：
+        <span class="en-sub">Dearest you:</span>
+      </p>
+      <p>
+        人生繾綣三萬天，2026年12月12日，想與您共繪最溫柔的回憶。
+        <span class="en-sub">They say life is a brief journey of thirty thousand days. On December 12, 2026, we wish to paint our gentlest memories by your side.</span>
+      </p>
+      <p>
+        誠摯邀請陪伴我們長大、走過每一段美好歲月的您，見證我們幸福的新篇章。
+        <span class="en-sub">We lovingly invite you, who held our hands as we grew and shared in our most precious memories, to witness the sweet new chapter of our love.</span>
+      </p>
+      <p>
+        不僅是婚禮，更是珍貴的相聚時刻，是以婚禮之名的溫暖派對。
+        <span class="en-sub">More than a formal wedding, this is a long-awaited reunion, a gentle celebration filled with warmth and love.</span>
+      </p>
+      <p>
+        期待與重要的您一起碰碰杯、聊聊天，分享那份閃閃發光的快樂。
+        <span class="en-sub">We wish for nothing more than to share a toast with the souls we hold most dear, to weave old memories into new whispers, and share a piece of our glowing happiness with you.</span>
+      </p>
+      <p>
+        倘若好久不見，我們婚禮見。
+        <span class="en-sub">If time has kept us apart lately, let's bring our hearts together again at our wedding.</span>
+      </p>
     </div>
   </section>
 
@@ -508,15 +554,15 @@ footer{
     <div class="inner">
       <div class="count-floral"><svg viewBox="0 0 260 40"><use href="#flourish-gold"/></svg></div>
       <div class="eyebrow">Counting Down</div>
-      <p style="letter-spacing:.15em;font-size:.95rem;">距離大喜之日尚餘</p>
+      <p style="letter-spacing:.15em;font-size:.95rem;">距離大喜之日尚餘<span class="en-sub on-dark" style="text-align:center;">Time Remaining Until Our Big Day</span></p>
       <div class="count-grid" id="countdown">
-        <div class="count-item"><div class="count-num" id="cd-d">00</div><div class="count-label">日</div></div>
+        <div class="count-item"><div class="count-num" id="cd-d">00</div><div class="count-label">日<span class="count-label-en">Days</span></div></div>
         <div class="count-colon">:</div>
-        <div class="count-item"><div class="count-num" id="cd-h">00</div><div class="count-label">時</div></div>
+        <div class="count-item"><div class="count-num" id="cd-h">00</div><div class="count-label">時<span class="count-label-en">Hours</span></div></div>
         <div class="count-colon">:</div>
-        <div class="count-item"><div class="count-num" id="cd-m">00</div><div class="count-label">分</div></div>
+        <div class="count-item"><div class="count-num" id="cd-m">00</div><div class="count-label">分<span class="count-label-en">Minutes</span></div></div>
         <div class="count-colon">:</div>
-        <div class="count-item"><div class="count-num" id="cd-s">00</div><div class="count-label">秒</div></div>
+        <div class="count-item"><div class="count-num" id="cd-s">00</div><div class="count-label">秒<span class="count-label-en">Seconds</span></div></div>
       </div>
     </div>
   </section>
@@ -526,27 +572,13 @@ footer{
     <div class="floral floral-corner fc-bl"><svg viewBox="0 0 130 130"><use href="#corner-branch"/></svg></div>
     <div class="floral floral-corner fc-br"><svg viewBox="0 0 130 130"><use href="#corner-branch"/></svg></div>
     <div class="eyebrow">Location</div>
-    <h2 style="font-weight:600;letter-spacing:.2em;">婚禮地點</h2>
+    <h2 style="font-weight:600;letter-spacing:.2em;">婚禮地點<span class="en-sub" style="text-align:center;">Wedding Venue</span></h2>
     <div class="divider"><svg viewBox="-14 -14 28 28"><use href="#bloom"/></svg></div>
     <div class="venue-photo">
-      <img src="venue-fantasybox-web.jpg" alt="Fantasy Box 場地佈置">
+      <img src="venue-map.png" alt="MGM Macau 地圖位置">
     </div>
-    <div class="venue-name">Fantasy Box</div>
     <div class="venue-addr">澳門美高梅酒店<br>MGM Macau</div>
-    <a class="map-btn" href="https://maps.google.com/?q=MGM+Macau" target="_blank" rel="noopener">查看地圖</a>
-  </section>
-
-  <!-- 心意 -->
-  <section>
-    <div class="eyebrow">With Love</div>
-    <h2 style="font-weight:600;letter-spacing:.2em;">心意</h2>
-    <div class="divider"><svg viewBox="-14 -14 28 28"><use href="#bloom"/></svg></div>
-    <div class="gift-text">
-      您的蒞臨已是我們最珍貴的禮物。<br>
-      如有任何查詢，歡迎聯絡我們：<br><br>
-      Vanessa：+853 ＿＿＿＿ ＿＿＿＿<br>
-      Ken：+853 ＿＿＿＿ ＿＿＿＿
-    </div>
+    <a class="map-btn" href="https://maps.google.com/?q=MGM+Macau" target="_blank" rel="noopener">查看地圖 <span class="inline-en">View Map</span></a>
   </section>
 
   <!-- RSVP -->
@@ -554,29 +586,32 @@ footer{
     <div class="eyebrow">RSVP</div>
     <h2 style="font-weight:600;letter-spacing:.2em;">出席回覆</h2>
     <div class="divider"><svg viewBox="-14 -14 28 28"><use href="#bloom"/></svg></div>
-    <p style="line-height:2;">為方便我們安排，懇請於下方確認出席。</p>
+    <p style="line-height:2;">為方便我們安排，懇請於下方確認出席。<span class="en-sub" style="text-align:center;">To help us plan ahead, kindly confirm your attendance below.</span></p>
 
     <div class="rsvp-card">
       <form id="rsvp-form">
         <div class="field">
-          <label for="name">姓名</label>
-          <input type="text" id="name" required placeholder="請輸入姓名">
+          <label for="name">姓名 <span class="inline-en">Name</span></label>
+          <input type="text" id="name" required placeholder="請輸入姓名 / Please enter your name">
         </div>
 
         <div class="field">
-          <label>婚禮定於 2026 年 12 月 12 日（星期六），是否參加？<br>地點：澳門美高梅酒店</label>
+          <label>
+            婚禮定於 2026 年 12 月 12 日（星期六），是否參加？地點：澳門美高梅酒店
+            <span class="en-sub">Our wedding will be held on Saturday, 12 December 2026 at MGM Macau. Will you be attending?</span>
+          </label>
           <div class="radio-row">
-            <label><input type="radio" name="attend" value="yes" required> 參加</label>
-            <label><input type="radio" name="attend" value="no"> 不參加</label>
-            <label><input type="radio" name="attend" value="tbd"> 待定</label>
+            <label><input type="radio" name="attend" value="yes" required> 參加 <span class="inline-en">Attending</span></label>
+            <label><input type="radio" name="attend" value="no"> 不參加 <span class="inline-en">Not Attending</span></label>
+            <label><input type="radio" name="attend" value="tbd"> 待定 <span class="inline-en">Undecided</span></label>
           </div>
         </div>
 
         <div class="field">
-          <label>婚禮參加人數</label>
+          <label>婚禮參加人數 <span class="inline-en">Number of Guests</span></label>
           <div class="select-row">
             <div class="select-col">
-              <span class="select-caption">成人</span>
+              <span class="select-caption">成人 <span class="inline-en">Adults</span></span>
               <select id="adults">
                 <option value="0">0</option>
                 <option value="1" selected>1</option>
@@ -592,7 +627,7 @@ footer{
               </select>
             </div>
             <div class="select-col">
-              <span class="select-caption">小孩</span>
+              <span class="select-caption">小孩 <span class="inline-en">Children</span></span>
               <select id="children">
                 <option value="0" selected>0</option>
                 <option value="1">1</option>
@@ -611,22 +646,36 @@ footer{
         </div>
 
         <div class="field">
-          <label>用餐時是否需要兒童座椅？</label>
+          <label>用餐時是否需要兒童座椅？ <span class="inline-en">Highchair Needed for Dining?</span></label>
           <div class="radio-row">
-            <label><input type="radio" name="highchair" value="yes"> 是</label>
-            <label><input type="radio" name="highchair" value="no" checked> 否</label>
+            <label><input type="radio" name="highchair" value="yes"> 是 <span class="inline-en">Yes</span></label>
+            <label><input type="radio" name="highchair" value="no" checked> 否 <span class="inline-en">No</span></label>
           </div>
         </div>
 
-        <button type="submit" class="rsvp-btn">送出回覆</button>
+        <button type="submit" class="rsvp-btn">送出回覆 <span class="inline-en" style="color:rgba(255,253,250,.75);">Submit</span></button>
       </form>
       <div class="rsvp-done" id="rsvp-done">
         💜<br>
         多謝您的回覆！<br>
         期待12月12日與您見面。
+        <span class="en-sub" style="text-align:center;">Thank you for your reply!<br>We look forward to seeing you on 12 December.</span>
       </div>
     </div>
-    <div class="rsvp-deadline">請於 2026 年 11 月 12 日前回覆</div>
+
+    <div class="rsvp-gift">
+      <div class="eyebrow">With Love</div>
+      <h2 style="font-weight:600;letter-spacing:.2em;">心意</h2>
+      <div class="divider"><svg viewBox="-14 -14 28 28"><use href="#bloom"/></svg></div>
+      <div class="gift-text">
+        您的蒞臨，就是我們最珍貴的禮物。<br>
+        婚禮詳細安排會在之後送上的請柬內說明，有需要（或者想我們了）就打給我們吧，不許已讀不回喔！
+        <span class="en-sub" style="text-align:center;">Having you with us is the most precious gift of all.<br>The full details will follow in a formal invitation soon — but if you need anything (or just miss us), give us a call. No leaving us on read!</span>
+        <br><br>
+        Vanessa：+853 6229 3266<br>
+        Ken：+853 6266 2681
+      </div>
+    </div>
   </section>
 
 </main>
@@ -634,7 +683,7 @@ footer{
 <footer>
   <div class="footer-flourish"><svg viewBox="0 0 260 40"><use href="#flourish-gold"/></svg></div>
   <div class="footer-script">Vanessa &amp; Ken</div>
-  <div class="footer-thanks">期待與您共度美好一天</div>
+  <div class="footer-thanks">期待與您共度美好一天<span class="en-sub on-dark" style="text-align:center;">Looking forward to celebrating this special day with you</span></div>
   <div class="footer-date">12 · 12 · 2026 · MACAU</div>
 </footer>
 
