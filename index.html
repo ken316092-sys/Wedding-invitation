@@ -102,10 +102,6 @@ body.locked{overflow:hidden;height:100vh;}
   filter:drop-shadow(0 6px 12px rgba(30,20,45,.45));
 }
 .wax-seal svg{width:100%;height:100%;display:block;overflow:visible;}
-.vk-mono{
-  font-family:'Great Vibes',cursive;
-  font-size:25px;letter-spacing:-6px;
-}
 @keyframes sealPulse{0%,100%{transform:translate(-50%,-46%) scale(1);}50%{transform:translate(-50%,-46%) scale(1.05);}}
 .envelope.open .wax-seal{
   animation:none;
@@ -230,9 +226,28 @@ section > *:not(.floral){position:relative;z-index:1;}
   overflow:hidden;background:#000;
   box-shadow:0 20px 46px rgba(58,39,82,.22);
 }
-.hero-video-frame video{
+#hero-video{
   width:100%;height:100%;object-fit:cover;display:block;
 }
+
+.video-popup-overlay{
+  position:fixed;inset:0;z-index:200;
+  background:rgba(20,12,32,.9);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;
+  transition:opacity .5s ease;
+}
+.video-popup-overlay.show{opacity:1;pointer-events:auto;}
+.video-popup-inner{
+  width:min(380px,86vw);aspect-ratio:9/16;
+  border:1px solid rgba(215,192,143,.5);
+  outline:1px solid rgba(215,192,143,.35);outline-offset:8px;
+  overflow:hidden;background:#000;
+  box-shadow:0 30px 80px rgba(0,0,0,.6);
+  transform:scale(.94);
+  transition:transform .5s ease;
+}
+.video-popup-overlay.show .video-popup-inner{transform:scale(1);}
 
 /* 邀請語 */
 .invite-text{
@@ -551,12 +566,17 @@ footer{
           <circle cx="60" cy="60" r="31.4" stroke="#524863" stroke-opacity=".3" stroke-width=".7"/>
         </g>
 
-        <text class="vk-mono" x="50" y="70" text-anchor="middle"
-              filter="url(#monoEmboss)" fill="url(#monoGrad)">VK</text>
+        <g transform="translate(41,42) scale(1.55)" filter="url(#monoEmboss)" fill="url(#monoGrad)">
+          <path d="M12,21 C12,21 2,13 2,7.5 C2,4.42 4.42,2 7.5,2 C9.24,2 10.91,2.81 12,4.09 C13.09,2.81 14.76,2 16.5,2 C19.58,2 22,4.42 22,7.5 C22,13 12,21 12,21 Z"/>
+        </g>
       </svg>
     </div>
   </div>
   <div class="env-hint">輕觸印章 開啟邀請函<span class="en-sub on-dark" style="text-align:center;letter-spacing:.15em;">Tap the Seal to Open</span></div>
+</div>
+
+<div class="video-popup-overlay" id="video-popup-overlay">
+  <div class="video-popup-inner" id="video-popup-inner"></div>
 </div>
 
 <main id="main">
@@ -793,9 +813,15 @@ footer{
       main.classList.add('show');
       document.body.classList.remove('locked');
 
-      // 主頁面出現之後，再等多幾秒先正式開始播放（連聲音）
+      // 主頁面出現之後，再等一陣先彈出視窗播放（連聲音）
       if(video){
         setTimeout(()=>{
+          const overlay=document.getElementById('video-popup-overlay');
+          const popupInner=document.getElementById('video-popup-inner');
+          if(overlay && popupInner){
+            popupInner.appendChild(video);
+            overlay.classList.add('show');
+          }
           video.play().catch(()=>{});
         },200);
       }
@@ -804,13 +830,29 @@ footer{
   env.addEventListener('click',openIt);
   env.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' ')openIt();});
 
-  // 播完第一次之後，之後每次循環都靜音（避免重複聲浪疊埋一齊嘈）
+  // 第一次播完（喺彈出視窗入面）之後，收埋視窗、將條片搬返原本網頁位置，
+  // 之後就靜音循環播放，唔會再彈出（音樂淨係第一次彈出視窗嗰陣播）
   const heroVideo=document.getElementById('hero-video');
+  const heroVideoFrame=document.querySelector('.hero-video-frame');
+  let poppedOnce=false;
   if(heroVideo){
     heroVideo.addEventListener('ended',()=>{
-      heroVideo.muted=true;
-      heroVideo.currentTime=0;
-      heroVideo.play().catch(()=>{});
+      if(!poppedOnce){
+        poppedOnce=true;
+        const overlay=document.getElementById('video-popup-overlay');
+        if(overlay)overlay.classList.remove('show');
+        heroVideo.pause();
+        setTimeout(()=>{
+          if(heroVideoFrame)heroVideoFrame.appendChild(heroVideo);
+          heroVideo.muted=true;
+          heroVideo.currentTime=0;
+          heroVideo.play().catch(()=>{});
+        },550);
+      }else{
+        heroVideo.muted=true;
+        heroVideo.currentTime=0;
+        heroVideo.play().catch(()=>{});
+      }
     });
   }
 })();
