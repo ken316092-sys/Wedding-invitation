@@ -510,7 +510,7 @@ footer{
     <div class="env-floral tl"><svg viewBox="0 0 130 130"><use href="#corner-branch"/></svg></div>
     <div class="env-floral br"><svg viewBox="0 0 130 130"><use href="#corner-branch"/></svg></div>
     <div class="wax-seal">
-      <svg viewBox="0 0 120 120" aria-label="V K 蠟印">
+      <svg viewBox="-12 -12 144 144" aria-label="V K 蠟印">
         <defs>
           <radialGradient id="rimGrad" cx="32%" cy="26%" r="80%">
             <stop offset="0%" stop-color="#9d90ac"/>
@@ -773,21 +773,32 @@ footer{
   function openIt(){
     if(opened)return;opened=true;
     env.classList.add('open');
-    // 喺用戶點擊嗰刻直接播放（有聲），先符合瀏覽器嘅自動播放政策
+    // 喺用戶點擊嗰刻「解鎖」有聲播放權限（符合瀏覽器自動播放政策），
+    // 但即刻暫停，唔會喺開信封動畫嗰陣就開始播，keep返畫面停喺第一格
     const video=document.getElementById('hero-video');
     if(video){
       video.muted=false;
       video.volume=1;
-      video.play().catch(()=>{
+      video.play().then(()=>{
+        video.pause();
+        video.currentTime=0;
+      }).catch(()=>{
         // 如果瀏覽器仍然阻擋有聲播放，回退做靜音播放，等用家自己撳掣開聲
         video.muted=true;
-        video.play().catch(()=>{});
+        video.play().then(()=>{video.pause();video.currentTime=0;}).catch(()=>{});
       });
     }
     setTimeout(()=>{
       screen.classList.add('opened');
       main.classList.add('show');
       document.body.classList.remove('locked');
+
+      // 主頁面出現之後，再等多幾秒先正式開始播放（連聲音）
+      if(video){
+        setTimeout(()=>{
+          video.play().catch(()=>{});
+        },2500);
+      }
     },2300);
   }
   env.addEventListener('click',openIt);
