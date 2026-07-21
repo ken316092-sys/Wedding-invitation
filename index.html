@@ -6,7 +6,7 @@
 <title>Vanessa & Ken — 婚禮邀請函</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+TC:wght@400;500;600&family=Great+Vibes&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+TC:wght@400;500;600&family=Great+Vibes&family=LXGW+WenKai+TC:wght@300;400;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --purple-deep:#3a2752;
@@ -18,7 +18,7 @@
   --gold-light:#d7c08f;
   --ink:#2e2440;
   --white:#fffdfa;
-  --font-cn:'翩翩體-簡','翩翩体-简','Ma Shan Zheng','標楷體','DFKai-SB','BiauKai','KaiTi','STKaiti','Noto Serif TC',serif;
+  --font-cn:'LXGW WenKai TC','標楷體','DFKai-SB','BiauKai','KaiTi','STKaiti','Noto Serif TC',serif;
   --font-en:'Cormorant Garamond',serif;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -53,8 +53,18 @@ body.locked{overflow:hidden;height:100vh;}
 }
 .env-body{
   position:absolute;inset:0;border-radius:8px;
+  background:linear-gradient(180deg,#ded3bf,#cfc3ab);
+  box-shadow:0 24px 60px rgba(0,0,0,.45),
+             inset 0 10px 22px rgba(90,70,45,.3),
+             inset 0 -4px 10px rgba(90,70,45,.15);
+  z-index:1;
+}
+.env-front{
+  position:absolute;inset:0;border-radius:8px;
   background:linear-gradient(180deg,#f7f3ec,#efe8dc);
-  box-shadow:0 24px 60px rgba(0,0,0,.45);
+  clip-path:polygon(0 0,50% 42%,100% 0,100% 100%,0 100%);
+  filter:drop-shadow(0 -2px 4px rgba(90,70,45,.28));
+  z-index:3;
 }
 .env-flap{
   position:absolute;left:0;right:0;top:0;height:55%;
@@ -63,7 +73,7 @@ body.locked{overflow:hidden;height:100vh;}
   border-radius:8px 8px 0 0;
   transform-origin:top center;
   transition:transform 1s cubic-bezier(.6,.05,.3,1);
-  z-index:2;
+  z-index:4;
 }
 .envelope.open .env-flap{transform:rotateX(180deg);z-index:0;}
 .env-card{
@@ -71,34 +81,30 @@ body.locked{overflow:hidden;height:100vh;}
   background:var(--white);border-radius:4px;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   font-family:'Great Vibes',cursive;font-size:1.5rem;color:var(--purple);
-  transition:transform 1s ease .6s;
-  z-index:1;
+  box-shadow:0 6px 20px rgba(0,0,0,.18);
+  transition:transform 1.1s cubic-bezier(.25,.8,.35,1) .7s;
+  z-index:2;
 }
 .env-card small{
   font-family:var(--font-cn);
   font-size:.72rem;color:var(--purple-soft);letter-spacing:.15em;
   margin-top:6px;
 }
-.envelope.open .env-card{transform:translateY(-26%);}
+.envelope.open .env-card{transform:translateY(-82%);}
 .wax-seal{
   position:absolute;left:50%;top:50%;
   width:96px;height:96px;
   transform:translate(-50%,-46%);
-  z-index:5;
-  border-radius:50%;
-  background:radial-gradient(circle at 32% 28%,#7d5aad,#5b3e85 55%,#3f2a61 100%);
-  box-shadow:0 6px 18px rgba(0,0,0,.4),inset 0 2px 6px rgba(255,255,255,.25),inset 0 -4px 8px rgba(0,0,0,.3);
+  z-index:6;
   display:flex;align-items:center;justify-content:center;
   transition:transform .6s ease,opacity .6s ease;
   animation:sealPulse 2.2s infinite ease-in-out;
+  filter:drop-shadow(0 6px 12px rgba(30,20,45,.45));
 }
-.wax-seal::before{
-  content:"";position:absolute;inset:7px;border-radius:50%;
-  border:1.5px solid rgba(215,192,143,.65);
-}
-.wax-seal span{
-  font-family:var(--font-en);font-weight:600;
-  font-size:1.5rem;color:var(--gold-light);letter-spacing:.05em;
+.wax-seal svg{width:100%;height:100%;display:block;overflow:visible;}
+.vk-mono{
+  font-family:'Great Vibes',cursive;
+  font-size:30px;letter-spacing:-7px;
 }
 @keyframes sealPulse{0%,100%{transform:translate(-50%,-46%) scale(1);}50%{transform:translate(-50%,-46%) scale(1.05);}}
 .envelope.open .wax-seal{
@@ -114,8 +120,8 @@ body.locked{overflow:hidden;height:100vh;}
 @keyframes hintFade{0%,100%{opacity:.45;}50%{opacity:1;}}
 .env-names{
   margin-bottom:34px;text-align:center;color:var(--gold-light);
-  font-family:var(--font-en);
-  letter-spacing:.5em;text-indent:.5em;font-size:.9rem;text-transform:uppercase;
+  font-family:'Great Vibes',cursive;
+  letter-spacing:.04em;font-size:2.4rem;line-height:1.2;
 }
 
 /* ===== 主頁面 ===== */
@@ -164,7 +170,7 @@ section > *:not(.floral){position:relative;z-index:1;}
 .footer-flourish{display:flex;justify-content:center;margin-bottom:22px;}
 .footer-flourish svg{width:200px;height:auto;}
 .env-floral{
-  position:absolute;width:60px;height:60px;pointer-events:none;opacity:.85;
+  position:absolute;width:60px;height:60px;pointer-events:none;opacity:.85;z-index:5;
 }
 .env-floral.tl{top:-12px;left:-14px;}
 .env-floral.br{bottom:-12px;right:-14px;transform:scale(-1,-1);}
@@ -190,13 +196,13 @@ section > *:not(.floral){position:relative;z-index:1;}
 .hero-sub{margin-top:10px;font-size:.95rem;color:var(--purple-soft);letter-spacing:.2em;text-indent:.2em;}
 .en-sub{
   display:block;font-family:var(--font-en);
-  font-size:1em;color:var(--purple-soft);letter-spacing:.02em;
+  font-size:1.08rem;color:var(--purple-soft);letter-spacing:.02em;
   margin-top:6px;text-indent:0;
 }
 .en-sub.on-dark{color:rgba(255,253,250,.65);}
 .inline-en{
   font-family:var(--font-en);
-  font-size:1em;color:var(--purple-soft);margin-left:5px;
+  font-size:1.08rem;color:var(--purple-soft);margin-left:5px;
 }
 .radio-row label .inline-en{margin-left:4px;}
 .photo-ph{
@@ -321,11 +327,23 @@ section > *:not(.floral){position:relative;z-index:1;}
 }
 .field input:focus,.field textarea:focus{outline:2px solid var(--purple-soft);}
 .radio-row{display:flex;gap:24px;flex-wrap:wrap;}
+.radio-row.radio-col{flex-direction:column;gap:16px;}
+.radio-row.radio-col label{align-items:flex-start;line-height:1.6;}
+.radio-row.radio-col .option-text{display:flex;flex-direction:column;}
+.radio-row.radio-col .inline-en{margin-left:0;display:block;margin-top:2px;}
 .radio-row label{
   display:flex;align-items:center;gap:8px;font-size:.95rem;
   color:var(--ink);letter-spacing:.05em;cursor:pointer;margin-bottom:0;
 }
-.radio-row input{accent-color:var(--purple);width:17px;height:17px;}
+.radio-row input{accent-color:var(--purple);width:17px;height:17px;flex-shrink:0;margin-top:2px;}
+.rsvp-conditional{
+  max-height:1200px;overflow:hidden;
+  transition:max-height .5s ease,opacity .4s ease,margin .4s ease;
+  opacity:1;
+}
+.rsvp-conditional.hidden{
+  max-height:0;opacity:0;margin:0;pointer-events:none;
+}
 .rsvp-btn{
   width:100%;padding:15px;border:none;cursor:pointer;
   background:var(--purple);color:var(--white);
@@ -483,14 +501,60 @@ footer{
 <!-- ===== 開場：點擊蠟印開信封 ===== -->
 <div id="envelope-screen">
   <div class="env-stars" id="stars"></div>
-  <div class="env-names">Vanessa &nbsp;·&nbsp; Ken</div>
+  <div class="env-names">Vanessa &amp; Ken</div>
   <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="點擊開啟邀請函 Tap to open">
     <div class="env-flap"></div>
     <div class="env-card">You're Invited<small>誠邀您的蒞臨</small></div>
     <div class="env-body"></div>
+    <div class="env-front"></div>
     <div class="env-floral tl"><svg viewBox="0 0 130 130"><use href="#corner-branch"/></svg></div>
     <div class="env-floral br"><svg viewBox="0 0 130 130"><use href="#corner-branch"/></svg></div>
-    <div class="wax-seal"><span>V·K</span></div>
+    <div class="wax-seal">
+      <svg viewBox="0 0 120 120" aria-label="V K 蠟印">
+        <defs>
+          <radialGradient id="rimGrad" cx="32%" cy="26%" r="80%">
+            <stop offset="0%" stop-color="#9d90ac"/>
+            <stop offset="45%" stop-color="#7f7092"/>
+            <stop offset="100%" stop-color="#4c4258"/>
+          </radialGradient>
+          <radialGradient id="wellGrad" cx="44%" cy="36%" r="75%">
+            <stop offset="0%" stop-color="#71667f"/>
+            <stop offset="60%" stop-color="#605570"/>
+            <stop offset="100%" stop-color="#4c4359"/>
+          </radialGradient>
+          <linearGradient id="monoGrad" x1="25%" y1="0%" x2="70%" y2="100%">
+            <stop offset="0%" stop-color="#ffffff"/>
+            <stop offset="50%" stop-color="#efeaf6"/>
+            <stop offset="100%" stop-color="#c9bdd8"/>
+          </linearGradient>
+          <filter id="sealShadow" x="-30%" y="-30%" width="160%" height="160%">
+            <feDropShadow dx="0" dy="2.5" stdDeviation="2.5" flood-color="#241536" flood-opacity=".4"/>
+          </filter>
+          <filter id="wellIn" x="-25%" y="-25%" width="150%" height="150%">
+            <feDropShadow dx="0" dy="1.2" stdDeviation="1.2" flood-color="#332c3d" flood-opacity=".5"/>
+          </filter>
+          <filter id="monoEmboss" x="-35%" y="-35%" width="170%" height="170%">
+            <feDropShadow dx="0.7" dy="1.1" stdDeviation="0.6" flood-color="#2e2738" flood-opacity=".7"/>
+            <feDropShadow dx="-0.4" dy="-0.5" stdDeviation="0.4" flood-color="#ffffff" flood-opacity=".55"/>
+          </filter>
+        </defs>
+
+        <circle filter="url(#sealShadow)" cx="60" cy="60" r="50" fill="url(#rimGrad)"/>
+        <path fill="none" stroke="#d6cbe0" stroke-opacity=".35" stroke-width="1.4" stroke-linecap="round"
+              d="M27,30 A46,46 0 0,1 76,15"/>
+
+        <circle filter="url(#wellIn)" cx="60" cy="60" r="38.5" fill="url(#wellGrad)"/>
+
+        <g fill="none">
+          <circle cx="60" cy="60" r="35.8" stroke="#524863" stroke-opacity=".55" stroke-width="1.1"/>
+          <circle cx="60" cy="60" r="33.6" stroke="#524863" stroke-opacity=".42" stroke-width=".9"/>
+          <circle cx="60" cy="60" r="31.4" stroke="#524863" stroke-opacity=".3" stroke-width=".7"/>
+        </g>
+
+        <text class="vk-mono" x="50" y="70" text-anchor="middle"
+              filter="url(#monoEmboss)" fill="url(#monoGrad)">VK</text>
+      </svg>
+    </div>
   </div>
   <div class="env-hint">輕觸印章 開啟邀請函<span class="en-sub on-dark" style="text-align:center;letter-spacing:.15em;">Tap the Seal to Open</span></div>
 </div>
@@ -528,23 +592,23 @@ footer{
       </p>
       <p>
         人生繾綣三萬天，2026年12月12日，想與您共繪最溫柔的回憶。
-        <span class="en-sub">They say life is a brief journey of thirty thousand days. On December 12, 2026, we wish to paint our gentlest memories by your side.</span>
+        <span class="en-sub">They say life is a brief journey of thirty thousand days.<br>On December 12, 2026, we wish to paint our gentlest memories by your side.</span>
       </p>
       <p>
         誠摯邀請陪伴我們長大、走過每一段美好歲月的您，見證我們幸福的新篇章。
-        <span class="en-sub">We lovingly invite you, who held our hands as we grew and shared in our most precious memories, to witness the sweet new chapter of our love.</span>
+        <span class="en-sub">We lovingly invite you, who held our hands as we grew<br>and shared in our most precious memories,<br>to witness the sweet new chapter of our love.</span>
       </p>
       <p>
         不僅是婚禮，更是珍貴的相聚時刻，是以婚禮之名的溫暖派對。
-        <span class="en-sub">More than a formal wedding, this is a long-awaited reunion, a gentle celebration filled with warmth and love.</span>
+        <span class="en-sub">More than a formal wedding, this is a long-awaited party,<br>a gentle celebration filled with warmth and love.</span>
       </p>
       <p>
         期待與重要的您一起碰碰杯、聊聊天，分享那份閃閃發光的快樂。
-        <span class="en-sub">We wish for nothing more than to share a toast with the souls we hold most dear, to weave old memories into new whispers, and share a piece of our glowing happiness with you.</span>
+        <span class="en-sub">We wish for nothing more than to share a toast with the souls we hold most dear,<br>to weave old memories into new whispers,<br>and share a piece of our glowing happiness with you.</span>
       </p>
       <p>
         倘若好久不見，我們婚禮見。
-        <span class="en-sub">If time has kept us apart lately, let's bring our hearts together again at our wedding.</span>
+        <span class="en-sub">If time has kept us apart lately,<br>let's bring our hearts together again at our wedding.</span>
       </p>
     </div>
   </section>
@@ -553,8 +617,8 @@ footer{
   <section id="countdown-sec">
     <div class="inner">
       <div class="count-floral"><svg viewBox="0 0 260 40"><use href="#flourish-gold"/></svg></div>
+      <p style="letter-spacing:.15em;font-size:.95rem;margin-bottom:14px;">距離大喜之日尚餘</p>
       <div class="eyebrow">Counting Down</div>
-      <p style="letter-spacing:.15em;font-size:.95rem;">距離大喜之日尚餘<span class="en-sub on-dark" style="text-align:center;">Time Remaining Until Our Big Day</span></p>
       <div class="count-grid" id="countdown">
         <div class="count-item"><div class="count-num" id="cd-d">00</div><div class="count-label">日<span class="count-label-en">Days</span></div></div>
         <div class="count-colon">:</div>
@@ -571,8 +635,8 @@ footer{
   <section>
     <div class="floral floral-corner fc-bl"><svg viewBox="0 0 130 130"><use href="#corner-branch"/></svg></div>
     <div class="floral floral-corner fc-br"><svg viewBox="0 0 130 130"><use href="#corner-branch"/></svg></div>
+    <h2 style="font-weight:600;letter-spacing:.2em;margin-bottom:14px;">婚禮地點</h2>
     <div class="eyebrow">Location</div>
-    <h2 style="font-weight:600;letter-spacing:.2em;">婚禮地點<span class="en-sub" style="text-align:center;">Wedding Venue</span></h2>
     <div class="divider"><svg viewBox="-14 -14 28 28"><use href="#bloom"/></svg></div>
     <div class="venue-photo">
       <img src="venue-map.png" alt="MGM Macau 地圖位置">
@@ -583,73 +647,75 @@ footer{
 
   <!-- RSVP -->
   <section id="rsvp">
+    <h2 style="font-weight:600;letter-spacing:.2em;margin-bottom:14px;">出席回覆</h2>
     <div class="eyebrow">RSVP</div>
-    <h2 style="font-weight:600;letter-spacing:.2em;">出席回覆</h2>
     <div class="divider"><svg viewBox="-14 -14 28 28"><use href="#bloom"/></svg></div>
-    <p style="line-height:2;">為方便我們安排，懇請於下方確認出席。<span class="en-sub" style="text-align:center;">To help us plan ahead, kindly confirm your attendance below.</span></p>
+    <p style="line-height:2;">為了方便我們留位置（其實是超級想見到你），麻煩在下方確認出席喔！<span class="en-sub" style="text-align:center;">To help us lock in the seating (honestly, we just really want to see you),<br>please confirm your attendance below!</span></p>
 
     <div class="rsvp-card">
       <form id="rsvp-form">
         <div class="field">
-          <label for="name">姓名 <span class="inline-en">Name</span></label>
+          <label for="name">你的名字 <span class="inline-en">Name</span></label>
           <input type="text" id="name" required placeholder="請輸入姓名 / Please enter your name">
         </div>
 
         <div class="field">
           <label>
-            婚禮定於 2026 年 12 月 12 日（星期六），是否參加？地點：澳門美高梅酒店
-            <span class="en-sub">Our wedding will be held on Saturday, 12 December 2026 at MGM Macau. Will you be attending?</span>
+            我們的婚禮派對訂於 2026 年 12 月 12 日（星期六）大概晚上 7 時在澳門美高梅酒店，你會來跟我們一起慶祝嗎？
+            <span class="en-sub">Our wedding party is on Saturday, December 12, 2026, around 7 p.m. at MGM Macau. Will you come celebrate with us?</span>
           </label>
-          <div class="radio-row">
-            <label><input type="radio" name="attend" value="yes" required> 參加 <span class="inline-en">Attending</span></label>
-            <label><input type="radio" name="attend" value="no"> 不參加 <span class="inline-en">Not Attending</span></label>
-            <label><input type="radio" name="attend" value="tbd"> 待定 <span class="inline-en">Undecided</span></label>
+          <div class="radio-row radio-col">
+            <label><input type="radio" name="attend" value="yes" required> <span class="option-text">一定到！不見不散！<span class="inline-en">(Count me in! No way am I missing the party of the year!)</span></span></label>
+            <label><input type="radio" name="attend" value="no"> <span class="option-text">去不了……（痛失 party party all night 的機會，祝你們幸福！）<span class="inline-en">(So sad to miss the feast, but wishing you guys the best!)</span></span></label>
+            <label><input type="radio" name="attend" value="tbd"> <span class="option-text">還在糾結，但內心非常想去！<span class="inline-en">(Still figuring it out, but my heart says yes!)</span></span></label>
           </div>
         </div>
 
-        <div class="field">
-          <label>婚禮參加人數 <span class="inline-en">Number of Guests</span></label>
-          <div class="select-row">
-            <div class="select-col">
-              <span class="select-caption">成人 <span class="inline-en">Adults</span></span>
-              <select id="adults">
-                <option value="0">0</option>
-                <option value="1" selected>1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-              </select>
-            </div>
-            <div class="select-col">
-              <span class="select-caption">小孩 <span class="inline-en">Children</span></span>
-              <select id="children">
-                <option value="0" selected>0</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-              </select>
+        <div class="rsvp-conditional" id="rsvp-conditional">
+          <div class="field">
+            <label>太好了！那當天會有多少位大小朋友一起來玩？ <span class="en-sub">Awesome! How many guests will be joining the fun?</span></label>
+            <div class="select-row">
+              <div class="select-col">
+                <span class="select-caption">大朋友數目 <span class="inline-en">Adults</span></span>
+                <select id="adults">
+                  <option value="0">0</option>
+                  <option value="1" selected>1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+              </div>
+              <div class="select-col">
+                <span class="select-caption">小朋友數目 <span class="inline-en">Children</span></span>
+                <select id="children">
+                  <option value="0" selected>0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="field">
-          <label>用餐時是否需要兒童座椅？ <span class="inline-en">Highchair Needed for Dining?</span></label>
-          <div class="radio-row">
-            <label><input type="radio" name="highchair" value="yes"> 是 <span class="inline-en">Yes</span></label>
-            <label><input type="radio" name="highchair" value="no" checked> 否 <span class="inline-en">No</span></label>
+          <div class="field">
+            <label>當天需要為「小小貴賓」準備兒童座椅嗎？ <span class="inline-en">Highchair Needed?</span></label>
+            <div class="radio-row">
+              <label><input type="radio" name="highchair" value="yes"> 需要的～ <span class="inline-en">(Yes, thanks~)</span></label>
+              <label><input type="radio" name="highchair" value="no" checked> 不用喔～ <span class="inline-en">(No, they're good~)</span></label>
+            </div>
           </div>
         </div>
 
@@ -664,14 +730,12 @@ footer{
     </div>
 
     <div class="rsvp-gift">
-      <div class="eyebrow">With Love</div>
-      <h2 style="font-weight:600;letter-spacing:.2em;">心意</h2>
       <div class="divider"><svg viewBox="-14 -14 28 28"><use href="#bloom"/></svg></div>
       <div class="gift-text">
         您的蒞臨，就是我們最珍貴的禮物。<br>
-        婚禮詳細安排會在之後送上的請柬內說明，有需要（或者想我們了）就打給我們吧，不許已讀不回喔！
-        <span class="en-sub" style="text-align:center;">Having you with us is the most precious gift of all.<br>The full details will follow in a formal invitation soon — but if you need anything (or just miss us), give us a call. No leaving us on read!</span>
-        <br><br>
+        婚禮詳細安排會在之後送上的請柬內說明，有需要（或者想我們了）就打給我們吧！
+        <span class="en-sub" style="text-align:center;">Having you with us is the most precious gift of all.<br>The full details will follow in a formal invitation soon,<br>but if you need anything (or just miss us), give us a call.</span>
+        <br>
         Vanessa：+853 6229 3266<br>
         Ken：+853 6266 2681
       </div>
@@ -724,7 +788,7 @@ footer{
       screen.classList.add('opened');
       main.classList.add('show');
       document.body.classList.remove('locked');
-    },1400);
+    },2300);
   }
   env.addEventListener('click',openIt);
   env.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' ')openIt();});
@@ -765,6 +829,21 @@ footer{
   const form=document.getElementById('rsvp-form');
   const done=document.getElementById('rsvp-done');
   const submitBtn=form.querySelector('.rsvp-btn');
+  const conditional=document.getElementById('rsvp-conditional');
+
+  // 只有揀「一定到」或「還在糾結」先顯示人數同兒童座椅嘅問題，揀「去不了」就隱藏
+  function updateConditional(){
+    const attendEl=form.querySelector('input[name="attend"]:checked');
+    if(attendEl && attendEl.value==='no'){
+      conditional.classList.add('hidden');
+    }else{
+      conditional.classList.remove('hidden');
+    }
+  }
+  form.querySelectorAll('input[name="attend"]').forEach(el=>{
+    el.addEventListener('change',updateConditional);
+  });
+  updateConditional();
 
   form.addEventListener('submit',e=>{
     e.preventDefault();
@@ -772,15 +851,16 @@ footer{
     const name=document.getElementById('name').value.trim();
     const attendEl=form.querySelector('input[name="attend"]:checked');
     const highchairEl=form.querySelector('input[name="highchair"]:checked');
-    const adults=document.getElementById('adults').value;
-    const children=document.getElementById('children').value;
+    const isAttending=!(attendEl && attendEl.value==='no');
+    const adults=isAttending?document.getElementById('adults').value:'';
+    const children=isAttending?document.getElementById('children').value:'';
 
     const payload={
       name:name,
       attend:attendEl?attendEl.value:'',
       adults:adults,
       children:children,
-      highchair:highchairEl?highchairEl.value:''
+      highchair:isAttending?(highchairEl?highchairEl.value:''):''
     };
 
     submitBtn.disabled=true;
