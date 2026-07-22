@@ -688,7 +688,7 @@ footer{
       <form id="rsvp-form">
         <div class="field">
           <label for="name">你的名字 <span class="inline-en">Name</span></label>
-          <input type="text" id="name" required placeholder="請輸入姓名 / Please enter your name">
+          <input type="text" id="name" required maxlength="100" placeholder="請輸入姓名 / Please enter your name">
         </div>
 
         <div class="field">
@@ -831,6 +831,7 @@ footer{
           const overlay=document.getElementById('video-popup-overlay');
           const popupInner=document.getElementById('video-popup-inner');
           if(overlay && popupInner){
+            video.removeAttribute('controls'); // 避免同自訂✕掣同原生播放器控制項重疊
             popupInner.appendChild(video);
             overlay.classList.add('show');
           }
@@ -857,6 +858,7 @@ footer{
     heroVideo.pause();
     setTimeout(()=>{
       if(heroVideoFrame)heroVideoFrame.appendChild(heroVideo);
+      heroVideo.setAttribute('controls',''); // 搬返細框之後還原原生控制項
       heroVideo.muted=true;
       heroVideo.currentTime=0;
       heroVideo.play().catch(()=>{});
@@ -934,8 +936,14 @@ footer{
     const adults=isAttending?document.getElementById('adults').value:'';
     const children=isAttending?document.getElementById('children').value:'';
 
+    // 基本驗證：姓名唔可以空白，長度設上限避免異常長輸入
+    if(!name){
+      document.getElementById('name').focus();
+      return;
+    }
+
     const payload={
-      name:name,
+      name:name.slice(0,100),
       attend:attendEl?attendEl.value:'',
       adults:adults,
       children:children,
