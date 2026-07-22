@@ -192,13 +192,13 @@ section > *:not(.floral){position:relative;z-index:1;}
 .hero-sub{margin-top:10px;font-size:.95rem;color:var(--purple-soft);letter-spacing:.2em;text-indent:.2em;}
 .en-sub{
   display:block;font-family:var(--font-en);
-  font-size:1.08rem;color:var(--purple-soft);letter-spacing:.02em;
+  font-size:1.08rem;font-weight:600;color:var(--purple-soft);letter-spacing:.02em;
   margin-top:6px;text-indent:0;
 }
 .en-sub.on-dark{color:rgba(255,253,250,.65);}
 .inline-en{
   font-family:var(--font-en);
-  font-size:1.08rem;color:var(--purple-soft);margin-left:5px;
+  font-size:1.08rem;font-weight:600;color:var(--purple-soft);margin-left:5px;
 }
 .radio-row label .inline-en{margin-left:4px;}
 .photo-ph{
@@ -239,6 +239,7 @@ section > *:not(.floral){position:relative;z-index:1;}
 }
 .video-popup-overlay.show{opacity:1;pointer-events:auto;}
 .video-popup-inner{
+  position:relative;
   width:min(380px,86vw);aspect-ratio:9/16;
   border:1px solid rgba(215,192,143,.5);
   outline:1px solid rgba(215,192,143,.35);outline-offset:8px;
@@ -248,6 +249,15 @@ section > *:not(.floral){position:relative;z-index:1;}
   transition:transform .5s ease;
 }
 .video-popup-overlay.show .video-popup-inner{transform:scale(1);}
+.video-popup-close{
+  position:absolute;top:10px;right:10px;z-index:10;
+  width:32px;height:32px;border-radius:50%;
+  background:rgba(20,12,32,.55);color:#fdf9f2;border:1px solid rgba(255,255,255,.35);
+  font-size:15px;line-height:1;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .2s ease;
+}
+.video-popup-close:hover{background:rgba(20,12,32,.8);}
 
 /* 邀請語 */
 .invite-text{
@@ -576,7 +586,9 @@ footer{
 </div>
 
 <div class="video-popup-overlay" id="video-popup-overlay">
-  <div class="video-popup-inner" id="video-popup-inner"></div>
+  <div class="video-popup-inner" id="video-popup-inner">
+    <button type="button" class="video-popup-close" id="video-popup-close" aria-label="關閉影片">✕</button>
+  </div>
 </div>
 
 <main id="main">
@@ -612,23 +624,23 @@ footer{
       </p>
       <p>
         人生繾綣三萬天，2026年12月12日，想與您共繪最溫柔的回憶。
-        <span class="en-sub">They say life is a brief journey of thirty thousand days.<br>On December 12, 2026, we wish to paint our gentlest memories by your side.</span>
+        <span class="en-sub">They say life is a brief journey of thirty thousand days. On December 12, 2026, we wish to paint our gentlest memories by your side.</span>
       </p>
       <p>
         誠摯邀請陪伴我們長大、走過每一段美好歲月的您，見證我們幸福的新篇章。
-        <span class="en-sub">We lovingly invite you, who held our hands as we grew<br>and shared in our most precious memories,<br>to witness the sweet new chapter of our love.</span>
+        <span class="en-sub">We lovingly invite you, who held our hands as we grew and shared in our most precious memories, to witness the sweet new chapter of our love.</span>
       </p>
       <p>
         不僅是婚禮，更是珍貴的相聚時刻，是以婚禮之名的溫暖派對。
-        <span class="en-sub">More than a formal wedding, this is a long-awaited party,<br>a gentle celebration filled with warmth and love.</span>
+        <span class="en-sub">More than a formal wedding, this is a long-awaited party, a gentle celebration filled with warmth and love.</span>
       </p>
       <p>
         期待與重要的您一起碰碰杯、聊聊天，分享那份閃閃發光的快樂。
-        <span class="en-sub">We wish for nothing more than to share a toast with the souls we hold most dear,<br>to weave old memories into new whispers,<br>and share a piece of our glowing happiness with you.</span>
+        <span class="en-sub">We wish for nothing more than to share a toast with the souls we hold most dear, to weave old memories into new whispers, and share a piece of our glowing happiness with you.</span>
       </p>
       <p>
         倘若好久不見，我們婚禮見。
-        <span class="en-sub">If time has kept us apart lately,<br>let's bring our hearts together again at our wedding.</span>
+        <span class="en-sub">If time has kept us apart lately, let's bring our hearts together again at our wedding.</span>
       </p>
     </div>
   </section>
@@ -670,7 +682,7 @@ footer{
     <h2 style="font-weight:600;letter-spacing:.2em;margin-bottom:14px;">出席回覆</h2>
     <div class="eyebrow">RSVP</div>
     <div class="divider"><svg viewBox="-14 -14 28 28"><use href="#bloom"/></svg></div>
-    <p style="line-height:2;">為了方便我們留位置（其實是超級想見到你），麻煩在下方確認出席喔！<span class="en-sub" style="text-align:center;">To help us lock in the seating (honestly, we just really want to see you),<br>please confirm your attendance below!</span></p>
+    <p style="line-height:2;">為了方便我們留位置（其實是超級想見到你），麻煩在下方確認出席喔！<span class="en-sub" style="text-align:center;">To help us lock in the seating (honestly, we just really want to see you), please confirm your attendance below!</span></p>
 
     <div class="rsvp-card">
       <form id="rsvp-form">
@@ -754,7 +766,7 @@ footer{
       <div class="gift-text">
         您的蒞臨，就是我們最珍貴的禮物。<br>
         婚禮詳細安排會在之後送上的請柬內說明，有需要（或者想我們了）就打給我們吧！
-        <span class="en-sub" style="text-align:center;">Having you with us is the most precious gift of all.<br>The full details will follow in a formal invitation soon,<br>but if you need anything (or just miss us), give us a call.</span>
+        <span class="en-sub" style="text-align:center;">Having you with us is the most precious gift of all. The full details will follow in a formal invitation soon, but if you need anything (or just miss us), give us a call.</span>
         <br>
         Vanessa：+853 6229 3266<br>
         Ken：+853 6266 2681
@@ -832,27 +844,41 @@ footer{
 
   // 第一次播完（喺彈出視窗入面）之後，收埋視窗、將條片搬返原本網頁位置，
   // 之後就靜音循環播放，唔會再彈出（音樂淨係第一次彈出視窗嗰陣播）
+  // 呢個function俾「自動播完」同「用戶手動撳✕」共用
   const heroVideo=document.getElementById('hero-video');
   const heroVideoFrame=document.querySelector('.hero-video-frame');
   let poppedOnce=false;
+
+  function closePopupAndReturnVideo(){
+    if(poppedOnce)return;
+    poppedOnce=true;
+    const overlay=document.getElementById('video-popup-overlay');
+    if(overlay)overlay.classList.remove('show');
+    heroVideo.pause();
+    setTimeout(()=>{
+      if(heroVideoFrame)heroVideoFrame.appendChild(heroVideo);
+      heroVideo.muted=true;
+      heroVideo.currentTime=0;
+      heroVideo.play().catch(()=>{});
+    },550);
+  }
+
   if(heroVideo){
     heroVideo.addEventListener('ended',()=>{
       if(!poppedOnce){
-        poppedOnce=true;
-        const overlay=document.getElementById('video-popup-overlay');
-        if(overlay)overlay.classList.remove('show');
-        heroVideo.pause();
-        setTimeout(()=>{
-          if(heroVideoFrame)heroVideoFrame.appendChild(heroVideo);
-          heroVideo.muted=true;
-          heroVideo.currentTime=0;
-          heroVideo.play().catch(()=>{});
-        },550);
+        closePopupAndReturnVideo();
       }else{
         heroVideo.muted=true;
         heroVideo.currentTime=0;
         heroVideo.play().catch(()=>{});
       }
+    });
+  }
+
+  const popupCloseBtn=document.getElementById('video-popup-close');
+  if(popupCloseBtn){
+    popupCloseBtn.addEventListener('click',()=>{
+      closePopupAndReturnVideo();
     });
   }
 })();
