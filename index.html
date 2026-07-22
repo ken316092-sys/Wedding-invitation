@@ -880,6 +880,7 @@ footer{
       document.body.classList.remove('locked');
 
       // 主頁面出現之後，再等一陣先彈出視窗播放（連聲音）
+      // 由撳蠟印嗰刻計，總共延遲3秒先開始播放
       if(video){
         setTimeout(()=>{
           const overlay=document.getElementById('video-popup-overlay');
@@ -890,7 +891,7 @@ footer{
             overlay.classList.add('show');
           }
           video.play().catch(()=>{});
-        },200);
+        },700);
       }
     },2300);
   }
