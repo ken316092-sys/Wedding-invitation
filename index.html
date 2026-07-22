@@ -20,6 +20,7 @@
   --white:#fffdfa;
   --font-cn:'LXGW WenKai TC','標楷體','DFKai-SB','BiauKai','KaiTi','STKaiti','Noto Serif TC',serif;
   --font-en:'Cormorant Garamond',serif;
+  --font-size-cn:1.08rem;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
@@ -87,7 +88,7 @@ body.locked{overflow:hidden;height:100vh;}
 }
 .env-card small{
   font-family:var(--font-cn);
-  font-size:.72rem;color:var(--purple-soft);letter-spacing:.15em;
+  font-size:var(--font-size-cn);color:var(--purple-soft);letter-spacing:.15em;
   margin-top:6px;
 }
 .envelope.open .env-card{transform:translateY(-82%);}
@@ -110,7 +111,7 @@ body.locked{overflow:hidden;height:100vh;}
 }
 .env-hint{
   margin-top:36px;color:rgba(255,253,250,.85);
-  letter-spacing:.35em;font-size:.85rem;text-indent:.35em;
+  letter-spacing:.35em;font-size:var(--font-size-cn);text-indent:.35em;
   animation:hintFade 2.4s infinite ease-in-out;
 }
 @keyframes hintFade{0%,100%{opacity:.45;}50%{opacity:1;}}
@@ -189,7 +190,7 @@ section > *:not(.floral){position:relative;z-index:1;}
   margin-top:30px;font-family:var(--font-en);font-weight:600;
   font-size:clamp(2rem,7vw,2.6rem);letter-spacing:.4em;text-indent:.4em;color:var(--ink);
 }
-.hero-sub{margin-top:10px;font-size:.95rem;color:var(--purple-soft);letter-spacing:.2em;text-indent:.2em;}
+.hero-sub{margin-top:10px;font-size:var(--font-size-cn);color:var(--purple-soft);letter-spacing:.2em;text-indent:.2em;}
 .en-sub{
   display:block;font-family:var(--font-en);
   font-size:1.08rem;font-weight:600;color:var(--purple-soft);letter-spacing:.02em;
@@ -201,6 +202,39 @@ section > *:not(.floral){position:relative;z-index:1;}
   font-size:1.08rem;font-weight:600;color:var(--purple-soft);margin-left:5px;
 }
 .radio-row label .inline-en{margin-left:4px;}
+
+/* 新人相片 */
+.couple-intro{
+  display:grid;
+  grid-template-columns:clamp(88px,26vw,140px) auto clamp(88px,26vw,140px);
+  align-items:center;justify-items:center;
+  column-gap:clamp(14px,4vw,30px);row-gap:16px;
+  margin-top:44px;
+}
+.couple-photo{
+  width:100%;aspect-ratio:1/1;border-radius:50%;
+  border:1px solid var(--gold-light);
+  outline:1px solid var(--gold-light);outline-offset:6px;
+  background:linear-gradient(160deg,var(--lilac-2),#ded2ef);
+  overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--purple-soft);
+}
+.couple-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+.couple-photo svg{width:44%;height:44%;opacity:.55;}
+.couple-heart{grid-row:1;color:#a13d3d;flex-shrink:0;}
+.couple-heart svg{width:clamp(18px,4vw,26px);height:clamp(18px,4vw,26px);}
+.couple-label{grid-row:2;text-align:center;line-height:1.7;}
+.couple-role{
+  display:block;font-size:var(--font-size-cn);letter-spacing:.15em;color:var(--purple-soft);
+}
+.couple-role .role-cn{color:#000;}
+.couple-role .inline-en{margin-left:6px;}
+.couple-name{
+  display:block;margin-top:2px;font-weight:600;font-size:var(--font-size-cn);
+  letter-spacing:.05em;color:var(--ink);
+}
+.couple-name .inline-en{margin-left:6px;}
 .photo-ph{
   margin:48px auto 0;width:min(420px,86vw);aspect-ratio:4/5;
   border:1px solid var(--gold-light);
@@ -261,7 +295,7 @@ section > *:not(.floral){position:relative;z-index:1;}
 
 /* 邀請語 */
 .invite-text{
-  font-size:1.02rem;line-height:2.2;color:var(--ink);
+  font-size:var(--font-size-cn);line-height:2.2;color:var(--ink);
 }
 .invite-text p+p{margin-top:1.2em;}
 
@@ -298,15 +332,15 @@ section > *:not(.floral){position:relative;z-index:1;}
   font-family:var(--font-en);font-size:1.45rem;
   color:var(--purple);min-width:84px;font-weight:500;
 }
-.sch-name{font-size:1.02rem;letter-spacing:.08em;}
+.sch-name{font-size:var(--font-size-cn);letter-spacing:.08em;}
 .sch-note{margin-left:auto;font-size:.82rem;color:var(--purple-soft);}
 
 /* 地點 */
-.venue-addr{margin-top:14px;line-height:1.9;color:var(--ink);font-size:.96rem;}
+.venue-addr{margin-top:14px;line-height:1.9;color:var(--ink);font-size:var(--font-size-cn);}
 .map-btn{
   display:inline-block;margin-top:26px;padding:13px 38px;
   border:1px solid var(--purple);color:var(--purple);
-  text-decoration:none;letter-spacing:.3em;text-indent:.3em;font-size:.85rem;
+  text-decoration:none;letter-spacing:.3em;text-indent:.3em;font-size:var(--font-size-cn);
   transition:background .3s,color .3s;
 }
 .map-btn:hover{background:var(--purple);color:var(--white);}
@@ -317,10 +351,10 @@ section > *:not(.floral){position:relative;z-index:1;}
   width:34px;height:34px;border-radius:50%;
   box-shadow:inset 0 0 0 1px rgba(0,0,0,.08);
 }
-.dress-text{line-height:2.1;font-size:.98rem;}
+.dress-text{line-height:2.1;font-size:var(--font-size-cn);}
 
 /* 心意 */
-.gift-text{line-height:2.2;font-size:.98rem;}
+.gift-text{line-height:2.2;font-size:var(--font-size-cn);}
 
 /* RSVP */
 #rsvp{padding-bottom:70px;}
@@ -332,23 +366,23 @@ section > *:not(.floral){position:relative;z-index:1;}
 }
 .field{margin-bottom:24px;}
 .field label{
-  display:block;font-size:.85rem;letter-spacing:.1em;
+  display:block;font-size:var(--font-size-cn);letter-spacing:.1em;
   color:var(--purple);margin-bottom:10px;line-height:1.8;
 }
 .select-row{display:flex;gap:28px;flex-wrap:wrap;}
 .select-col{display:flex;flex-direction:column;gap:8px;min-width:110px;}
-.select-caption{font-size:.85rem;color:var(--purple-soft);letter-spacing:.1em;}
+.select-caption{font-size:var(--font-size-cn);color:var(--purple-soft);letter-spacing:.1em;}
 .select-col select{
   padding:12px 14px;border:1px solid var(--lilac-2);
   background:var(--lilac) url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" stroke="%235b3e85" stroke-width="1.6"><path d="M5.5 7.5l4.5 4.5 4.5-4.5"/></svg>') no-repeat right 12px center;
   background-size:14px;
   appearance:none;-webkit-appearance:none;-moz-appearance:none;
-  font-family:inherit;font-size:.95rem;color:var(--ink);cursor:pointer;
+  font-family:inherit;font-size:var(--font-size-cn);color:var(--ink);cursor:pointer;
 }
 .select-col select:focus{outline:2px solid var(--purple-soft);}
 .field input[type=text],.field input[type=number],.field textarea{
   width:100%;padding:12px 14px;border:1px solid var(--lilac-2);
-  background:var(--lilac);font-family:inherit;font-size:.95rem;color:var(--ink);
+  background:var(--lilac);font-family:inherit;font-size:var(--font-size-cn);color:var(--ink);
 }
 .field input:focus,.field textarea:focus{outline:2px solid var(--purple-soft);}
 .radio-row{display:flex;gap:24px;flex-wrap:wrap;}
@@ -357,7 +391,7 @@ section > *:not(.floral){position:relative;z-index:1;}
 .radio-row.radio-col .option-text{display:flex;flex-direction:column;}
 .radio-row.radio-col .inline-en{margin-left:0;display:block;margin-top:2px;}
 .radio-row label{
-  display:flex;align-items:center;gap:8px;font-size:.95rem;
+  display:flex;align-items:center;gap:8px;font-size:var(--font-size-cn);
   color:var(--ink);letter-spacing:.05em;cursor:pointer;margin-bottom:0;
 }
 .radio-row input{accent-color:var(--purple);width:17px;height:17px;flex-shrink:0;margin-top:2px;}
@@ -372,15 +406,15 @@ section > *:not(.floral){position:relative;z-index:1;}
 .rsvp-btn{
   width:100%;padding:15px;border:none;cursor:pointer;
   background:var(--purple);color:var(--white);
-  font-family:inherit;font-size:.95rem;letter-spacing:.35em;text-indent:.35em;
+  font-family:inherit;font-size:var(--font-size-cn);letter-spacing:.35em;text-indent:.35em;
   transition:background .3s;
 }
 .rsvp-btn:hover{background:var(--purple-deep);}
 .rsvp-done{
   display:none;text-align:center;padding:30px 0 8px;
-  color:var(--purple);line-height:2;
+  color:var(--purple);line-height:2;font-size:var(--font-size-cn);
 }
-.rsvp-deadline{margin-top:14px;font-size:.85rem;color:var(--purple-soft);letter-spacing:.1em;}
+.rsvp-deadline{margin-top:14px;font-size:var(--font-size-cn);color:var(--purple-soft);letter-spacing:.1em;}
 .rsvp-gift{margin-top:56px;}
 
 /* 結尾 */
@@ -392,7 +426,7 @@ footer{
 .footer-script{
   font-family:'Great Vibes',cursive;font-size:2.4rem;color:var(--white);
 }
-.footer-thanks{margin-top:18px;letter-spacing:.3em;text-indent:.3em;font-size:.85rem;}
+.footer-thanks{margin-top:18px;letter-spacing:.3em;text-indent:.3em;font-size:var(--font-size-cn);}
 .footer-date{margin-top:30px;font-family:var(--font-en);letter-spacing:.4em;text-indent:.4em;font-size:.8rem;opacity:.7;}
 
 @media (prefers-reduced-motion:reduce){
@@ -520,6 +554,15 @@ footer{
       <use href="#bloom" transform="translate(24,136)"/>
       <use href="#bloom-light" transform="translate(22,66)"/>
     </g>
+    <!-- 心心（同蠟印用一樣嘅心形） -->
+    <g id="heart">
+      <path d="M12,21 C12,21 2,13 2,7.5 C2,4.42 4.42,2 7.5,2 C9.24,2 10.91,2.81 12,4.09 C13.09,2.81 14.76,2 16.5,2 C19.58,2 22,4.42 22,7.5 C22,13 12,21 12,21 Z"/>
+    </g>
+    <!-- 人像相框佔位圖示 -->
+    <g id="portrait-ph" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="30" cy="22" r="12"/>
+      <path d="M8,54 C8,38 16,32 30,32 C44,32 52,38 52,54"/>
+    </g>
   </defs>
 </svg>
 
@@ -611,6 +654,15 @@ footer{
     <div class="divider"><svg viewBox="-14 -14 28 28"><use href="#bloom"/></svg></div>
     <div class="hero-date">12 · 12 · 2026</div>
     <div class="hero-sub">星期六 ｜ 誠邀您見證我們的大喜之日<span class="en-sub" style="text-align:center;">Saturday ｜ Cordially Inviting You to Our Tender Wedding</span></div>
+
+    <!-- 新人相片：左新娘右新郎，可自行換上真實相片（<img src="..."> 取代下面嘅 svg 佔位圖） -->
+    <div class="couple-intro">
+      <div class="couple-photo" style="grid-column:1;grid-row:1;"><svg viewBox="0 0 60 60"><use href="#portrait-ph"/></svg></div>
+      <div class="couple-heart" style="grid-column:2;grid-row:1;"><svg viewBox="0 0 24 24"><use href="#heart" fill="currentColor"/></svg></div>
+      <div class="couple-photo" style="grid-column:3;grid-row:1;"><svg viewBox="0 0 60 60"><use href="#portrait-ph"/></svg></div>
+      <div class="couple-label" style="grid-column:1;grid-row:2;"><span class="couple-role"><span class="role-cn">新娘</span> <span class="inline-en">Bride</span></span><span class="couple-name">李潔盈 <span class="inline-en">Vanessa</span></span></div>
+      <div class="couple-label" style="grid-column:3;grid-row:2;"><span class="couple-role"><span class="role-cn">新郎</span> <span class="inline-en">Groom</span></span><span class="couple-name">梁東豪 <span class="inline-en">Ken</span></span></div>
+    </div>
   </section>
 
   <!-- 邀請語 -->
@@ -649,7 +701,7 @@ footer{
   <section id="countdown-sec">
     <div class="inner">
       <div class="count-floral"><svg viewBox="0 0 260 40"><use href="#flourish-gold"/></svg></div>
-      <p style="letter-spacing:.15em;font-size:.95rem;margin-bottom:14px;">距離大喜之日尚餘</p>
+      <p style="letter-spacing:.15em;font-size:var(--font-size-cn);margin-bottom:14px;">距離大喜之日尚餘</p>
       <div class="eyebrow">Counting Down</div>
       <div class="count-grid" id="countdown">
         <div class="count-item"><div class="count-num" id="cd-d">00</div><div class="count-label">日<span class="count-label-en">Days</span></div></div>
@@ -682,7 +734,7 @@ footer{
     <h2 style="font-weight:600;letter-spacing:.2em;margin-bottom:14px;">出席回覆</h2>
     <div class="eyebrow">RSVP</div>
     <div class="divider"><svg viewBox="-14 -14 28 28"><use href="#bloom"/></svg></div>
-    <p style="line-height:2;">為了方便我們留位置（其實是超級想見到你），麻煩在下方確認出席喔！<span class="en-sub" style="text-align:center;">To help us lock in the seating (honestly, we just really want to see you), please confirm your attendance below!</span></p>
+    <p style="line-height:2;font-size:var(--font-size-cn);">為了方便我們留位置（其實是超級想見到你），麻煩在下方確認出席喔！<span class="en-sub" style="text-align:center;">To help us lock in the seating (honestly, we just really want to see you), please confirm your attendance below!</span></p>
 
     <div class="rsvp-card">
       <form id="rsvp-form">
