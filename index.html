@@ -206,13 +206,15 @@ section > *:not(.floral){position:relative;z-index:1;}
 /* 新人相片 */
 .couple-intro{
   display:grid;
-  grid-template-columns:clamp(88px,26vw,140px) auto clamp(88px,26vw,140px);
+  grid-template-columns:max-content max-content max-content;
+  justify-content:center;
   align-items:center;justify-items:center;
-  column-gap:clamp(14px,4vw,30px);row-gap:16px;
+  column-gap:clamp(10px,4vw,22px);row-gap:14px;
   margin-top:44px;
 }
 .couple-photo{
-  width:100%;aspect-ratio:1/1;border-radius:50%;
+  width:clamp(84px,24vw,120px);height:clamp(84px,24vw,120px);
+  border-radius:50%;
   border:1px solid var(--gold-light);
   outline:1px solid var(--gold-light);outline-offset:6px;
   background:linear-gradient(160deg,var(--lilac-2),#ded2ef);
@@ -657,9 +659,9 @@ footer{
 
     <!-- 新人相片：左新娘右新郎，可自行換上真實相片（<img src="..."> 取代下面嘅 svg 佔位圖） -->
     <div class="couple-intro">
-      <div class="couple-photo" style="grid-column:1;grid-row:1;"><svg viewBox="0 0 60 60"><use href="#portrait-ph"/></svg></div>
+      <div class="couple-photo" style="grid-column:1;grid-row:1;"><img src="bride-photo.jpg" alt="新娘 李潔盈 Vanessa"></div>
       <div class="couple-heart" style="grid-column:2;grid-row:1;"><svg viewBox="0 0 24 24"><use href="#heart" fill="currentColor"/></svg></div>
-      <div class="couple-photo" style="grid-column:3;grid-row:1;"><svg viewBox="0 0 60 60"><use href="#portrait-ph"/></svg></div>
+      <div class="couple-photo" style="grid-column:3;grid-row:1;"><img src="groom-photo.jpg" alt="新郎 梁東豪 Ken"></div>
       <div class="couple-label" style="grid-column:1;grid-row:2;"><span class="couple-role"><span class="role-cn">新娘</span> <span class="inline-en">Bride</span></span><span class="couple-name">李潔盈 <span class="inline-en">Vanessa</span></span></div>
       <div class="couple-label" style="grid-column:3;grid-row:2;"><span class="couple-role"><span class="role-cn">新郎</span> <span class="inline-en">Groom</span></span><span class="couple-name">梁東豪 <span class="inline-en">Ken</span></span></div>
     </div>
