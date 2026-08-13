@@ -790,7 +790,6 @@ footer{
           <div class="radio-row radio-col">
             <label><input type="radio" name="attend" value="yes"> <span class="option-text">一定到！不見不散！<span class="inline-en">(Count me in! No way am I missing the party of the year!)</span></span></label>
             <label><input type="radio" name="attend" value="no"> <span class="option-text">去不了……（痛失 party party all night 的機會，祝你們幸福！）<span class="inline-en">(So sad to miss the feast, but wishing you guys the best!)</span></span></label>
-            <label><input type="radio" name="attend" value="tbd"> <span class="option-text">還在糾結，但內心非常想去！<span class="inline-en">(Still figuring it out, but my heart says yes!)</span></span></label>
           </div>
           <div class="field-error" id="attend-error">請選擇是否出席 <span class="inline-en">Please select an option</span></div>
         </div>
@@ -1005,7 +1004,7 @@ footer{
   const submitBtn=form.querySelector('.rsvp-btn');
   const conditional=document.getElementById('rsvp-conditional');
 
-  // 只有揀「一定到」或「還在糾結」先顯示人數同兒童座椅嘅問題，揀「去不了」就隱藏
+  // 揀「一定到」先顯示人數同兒童餐椅嘅問題，揀「去不了」就隱藏
   function updateConditional(){
     const attendEl=form.querySelector('input[name="attend"]:checked');
     if(attendEl && attendEl.value==='no'){
