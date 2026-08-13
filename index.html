@@ -382,7 +382,9 @@ section > *:not(.floral){position:relative;z-index:1;}
   appearance:none;-webkit-appearance:none;-moz-appearance:none;
   font-family:inherit;font-size:var(--font-size-cn);color:var(--ink);cursor:pointer;
 }
-.select-col select:focus{outline:2px solid var(--purple-soft);}
+/* outline-offset負值＝框畫喺內側。個select左邊啱啱貼住.rsvp-conditional
+   嘅overflow:hidden邊界，向外畫嘅話左邊條線會俾裁走 */
+.select-col select:focus{outline:2px solid var(--purple-soft);outline-offset:-2px;}
 .field input[type=text],.field input[type=number],.field textarea{
   width:100%;padding:12px 14px;border:1px solid var(--lilac-2);
   background:var(--lilac);font-family:inherit;font-size:var(--font-size-cn);color:var(--ink);
@@ -417,6 +419,13 @@ section > *:not(.floral){position:relative;z-index:1;}
 .field-error{
   display:none;margin-top:8px;
   font-size:var(--font-size-cn);color:#a13d3d;letter-spacing:.05em;
+}
+/* 未填提示：用outline唔用border，唔會推郁其他element */
+.field.invalid input[type=text]{
+  border-color:#a13d3d;outline:2px solid rgba(161,61,61,.35);
+}
+.field.invalid .radio-row{
+  outline:2px solid #a13d3d;outline-offset:10px;border-radius:4px;
 }
 .field-error.show{display:block;}
 .rsvp-btn{
@@ -753,34 +762,33 @@ footer{
     <p style="line-height:2;font-size:var(--font-size-cn);">為了方便我們留位置（其實是超級想見到你），麻煩在下方確認出席喔！<span class="en-sub" style="text-align:center;">To help us lock in the seating (honestly, we just really want to see you), please confirm your attendance below!</span></p>
 
     <div class="rsvp-card">
-      <form id="rsvp-form">
-        <div class="field">
-          <label for="name">
-            你的全名 <span class="inline-en">Full Name</span>
-            <span class="en-sub">麻煩寫全名喔～怕同名認錯人！<br>Full name please, so we don't mix you up!</span>
-          </label>
-          <input type="text" id="name" required maxlength="100" placeholder="例如：陳大文 Karen Chan">
+      <form id="rsvp-form" novalidate>
+        <div class="field" id="name-field">
+          <label for="name">你的全名 <span class="inline-en">Full Name</span></label>
+          <input type="text" id="name" maxlength="100" placeholder="例如：陳大文/Peter Chan">
+          <div class="field-error" id="name-error">麻煩填返你個名喔～ <span class="inline-en">Please enter your name</span></div>
         </div>
 
-        <div class="field">
+        <div class="field" id="side-field">
           <label>你是哪一方的親友？ <span class="inline-en">Whose Side?</span></label>
           <div class="radio-row">
-            <label><input type="radio" name="side" value="groom" required> 男方 <span class="inline-en">Ken</span></label>
+            <label><input type="radio" name="side" value="groom"> 男方 <span class="inline-en">Ken</span></label>
             <label><input type="radio" name="side" value="bride"> 女方 <span class="inline-en">Vanessa</span></label>
-            <label><input type="radio" name="side" value="both"> 兩邊都認識 <span class="inline-en">Both</span></label>
           </div>
+          <div class="field-error" id="side-error">麻煩揀返一邊喔～ <span class="inline-en">Please pick one</span></div>
         </div>
 
-        <div class="field">
+        <div class="field" id="attend-field">
           <label>
             我們的婚禮派對訂於 2026 年 12 月 12 日（星期六）大概晚上 7 時在澳門美高梅酒店，你會來跟我們一起慶祝嗎？
             <span class="en-sub">Our wedding party is on Saturday, December 12, 2026, around 7 p.m. at MGM Macau. Will you come celebrate with us?</span>
           </label>
           <div class="radio-row radio-col">
-            <label><input type="radio" name="attend" value="yes" required> <span class="option-text">一定到！不見不散！<span class="inline-en">(Count me in! No way am I missing the party of the year!)</span></span></label>
+            <label><input type="radio" name="attend" value="yes"> <span class="option-text">一定到！不見不散！<span class="inline-en">(Count me in! No way am I missing the party of the year!)</span></span></label>
             <label><input type="radio" name="attend" value="no"> <span class="option-text">去不了……（痛失 party party all night 的機會，祝你們幸福！）<span class="inline-en">(So sad to miss the feast, but wishing you guys the best!)</span></span></label>
             <label><input type="radio" name="attend" value="tbd"> <span class="option-text">還在糾結，但內心非常想去！<span class="inline-en">(Still figuring it out, but my heart says yes!)</span></span></label>
           </div>
+          <div class="field-error" id="attend-error">麻煩話俾我們知你來不來喔～ <span class="inline-en">Please let us know</span></div>
         </div>
 
         <div class="rsvp-conditional" id="rsvp-conditional">
@@ -827,7 +835,6 @@ footer{
               <label><input type="radio" name="highchair" value="yes"> 需要的～ <span class="inline-en">(Yes, thanks~)</span></label>
               <label><input type="radio" name="highchair" value="no"> 不用喔～ <span class="inline-en">(No, they're good~)</span></label>
             </div>
-            <div class="field-error" id="highchair-error">麻煩幫我們揀一個喔～ <span class="inline-en">Please pick one~</span></div>
           </div>
         </div>
 
@@ -1010,7 +1017,6 @@ footer{
   // 小朋友數目有1或以上先顯示兒童餐椅問題，揀返0就隱藏
   const childrenSelect=document.getElementById('children');
   const highchairField=document.getElementById('highchair-field');
-  const highchairError=document.getElementById('highchair-error');
 
   // 問題有冇真係問過賓客（要出席 + 有小朋友），冇問過就唔應該當佢答咗
   function highchairAsked(){
@@ -1023,14 +1029,34 @@ footer{
       highchairField.classList.remove('hidden');
     }else{
       highchairField.classList.add('hidden');
-      highchairError.classList.remove('show');
     }
   }
   childrenSelect.addEventListener('change',updateHighchairField);
-  form.querySelectorAll('input[name="highchair"]').forEach(el=>{
-    el.addEventListener('change',()=>highchairError.classList.remove('show'));
-  });
   updateHighchairField();
+
+  // 未填提示：紅框 + 紅字，邊條未填就標示邊條
+  const nameInput=document.getElementById('name');
+  // 兒童餐椅唔列入必填（賓客唔答就當冇特別要求，Sheet嗰欄會留白）
+  const checks=[
+    {field:'name-field',  err:'name-error',   ok:()=>nameInput.value.trim()!==''},
+    {field:'side-field',  err:'side-error',   ok:()=>!!form.querySelector('input[name="side"]:checked')},
+    {field:'attend-field',err:'attend-error', ok:()=>!!form.querySelector('input[name="attend"]:checked')}
+  ];
+
+  function mark(c,bad){
+    document.getElementById(c.field).classList.toggle('invalid',bad);
+    document.getElementById(c.err).classList.toggle('show',bad);
+  }
+  // 用戶一填返就即刻收起提示，唔使等佢再撳送出
+  function clearOn(c){
+    return ()=>{ if(c.ok()) mark(c,false); };
+  }
+  nameInput.addEventListener('input',clearOn(checks[0]));
+  ['side','attend'].forEach((n,i)=>{
+    form.querySelectorAll('input[name="'+n+'"]').forEach(el=>{
+      el.addEventListener('change',clearOn(checks[i+1]));
+    });
+  });
 
   form.addEventListener('submit',e=>{
     e.preventDefault();
@@ -1043,21 +1069,20 @@ footer{
     const adults=isAttending?document.getElementById('adults').value:'';
     const children=isAttending?document.getElementById('children').value:'';
 
-    // 基本驗證：姓名唔可以空白，長度設上限避免異常長輸入
-    if(!name){
-      document.getElementById('name').focus();
-      return;
-    }
-
-    // 有小朋友就一定要答兒童餐椅（唔用HTML required，因為個欄位隱藏嗰陣會令瀏覽器報錯）
-    if(highchairAsked() && !highchairEl){
-      highchairError.classList.add('show');
-      highchairField.scrollIntoView({block:'center',behavior:'smooth'});
+    // 逐條檢查，全部未填嘅都標紅，然後跳去最上面嗰條
+    let firstBad=null;
+    checks.forEach(c=>{
+      const bad=!c.ok();
+      mark(c,bad);
+      if(bad && !firstBad) firstBad=document.getElementById(c.field);
+    });
+    if(firstBad){
+      firstBad.scrollIntoView({block:'center',behavior:'smooth'});
       return;
     }
 
     // 寫入Sheet時轉做中文標籤，方便排枱時直接掃描
-    const sideLabels={groom:'男方 Ken',bride:'女方 Vanessa',both:'兩邊都認識'};
+    const sideLabels={groom:'男方 Ken',bride:'女方 Vanessa'};
 
     const payload={
       name:name.slice(0,100),
