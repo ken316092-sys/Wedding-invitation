@@ -400,21 +400,25 @@ section > *:not(.floral){position:relative;z-index:1;}
   color:var(--ink);letter-spacing:.05em;cursor:pointer;margin-bottom:0;
 }
 .radio-row input{accent-color:var(--purple);width:17px;height:17px;flex-shrink:0;margin-top:2px;}
+/* 呢兩個容器用overflow:hidden做展開動畫，會連紅框一齊裁走。
+   加左右padding + 等量負margin：裁切範圍向外闊咗，但入面啲字位置唔變。 */
 .rsvp-conditional{
   max-height:1200px;overflow:hidden;
+  padding:0 14px;margin:0 -14px;
   transition:max-height .5s ease,opacity .4s ease,margin .4s ease;
   opacity:1;
 }
 .rsvp-conditional.hidden{
-  max-height:0;opacity:0;margin:0;pointer-events:none;
+  max-height:0;opacity:0;margin:0 -14px;pointer-events:none;
 }
 .highchair-field{
   max-height:300px;overflow:hidden;
+  padding:0 14px 14px;margin:0 -14px 10px;
   transition:max-height .5s ease,opacity .4s ease,margin .4s ease;
   opacity:1;
 }
 .highchair-field.hidden{
-  max-height:0;opacity:0;margin:0;pointer-events:none;
+  max-height:0;opacity:0;margin:0 -14px;padding:0 14px;pointer-events:none;
 }
 .field-error{
   display:none;margin-top:8px;
@@ -835,6 +839,7 @@ footer{
               <label><input type="radio" name="highchair" value="yes"> 需要的～ <span class="inline-en">(Yes, thanks~)</span></label>
               <label><input type="radio" name="highchair" value="no"> 不用喔～ <span class="inline-en">(No, they're good~)</span></label>
             </div>
+            <div class="field-error" id="highchair-error">請選擇其中一項 <span class="inline-en">Please select one</span></div>
           </div>
         </div>
 
@@ -1036,11 +1041,13 @@ footer{
 
   // 未填提示：紅框 + 紅字，邊條未填就標示邊條
   const nameInput=document.getElementById('name');
-  // 兒童餐椅唔列入必填（賓客唔答就當冇特別要求，Sheet嗰欄會留白）
   const checks=[
     {field:'name-field',  err:'name-error',   ok:()=>nameInput.value.trim()!==''},
     {field:'side-field',  err:'side-error',   ok:()=>!!form.querySelector('input[name="side"]:checked')},
-    {field:'attend-field',err:'attend-error', ok:()=>!!form.querySelector('input[name="attend"]:checked')}
+    {field:'attend-field',err:'attend-error', ok:()=>!!form.querySelector('input[name="attend"]:checked')},
+    // 兒童餐椅：只有真係問過（要出席 + 小朋友1個或以上）先當必答
+    {field:'highchair-field',err:'highchair-error',
+     ok:()=>!highchairAsked()||!!form.querySelector('input[name="highchair"]:checked')}
   ];
 
   function mark(c,bad){
@@ -1052,10 +1059,16 @@ footer{
     return ()=>{ if(c.ok()) mark(c,false); };
   }
   nameInput.addEventListener('input',clearOn(checks[0]));
-  ['side','attend'].forEach((n,i)=>{
+  ['side','attend','highchair'].forEach((n,i)=>{
     form.querySelectorAll('input[name="'+n+'"]').forEach(el=>{
       el.addEventListener('change',clearOn(checks[i+1]));
     });
+  });
+  // 小朋友改返做0／揀「去不了」＝呢條唔再問，收起紅框；仲問緊就維持紅框
+  const clearHighchairIfNotAsked=()=>{ if(!highchairAsked()) mark(checks[3],false); };
+  childrenSelect.addEventListener('change',clearHighchairIfNotAsked);
+  form.querySelectorAll('input[name="attend"]').forEach(el=>{
+    el.addEventListener('change',clearHighchairIfNotAsked);
   });
 
   form.addEventListener('submit',e=>{
