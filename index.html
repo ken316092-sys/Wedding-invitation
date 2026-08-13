@@ -406,6 +406,14 @@ section > *:not(.floral){position:relative;z-index:1;}
 .rsvp-conditional.hidden{
   max-height:0;opacity:0;margin:0;pointer-events:none;
 }
+.highchair-field{
+  max-height:300px;overflow:hidden;
+  transition:max-height .5s ease,opacity .4s ease,margin .4s ease;
+  opacity:1;
+}
+.highchair-field.hidden{
+  max-height:0;opacity:0;margin:0;pointer-events:none;
+}
 .rsvp-btn{
   width:100%;padding:15px;border:none;cursor:pointer;
   background:var(--purple);color:var(--white);
@@ -797,7 +805,7 @@ footer{
             </div>
           </div>
 
-          <div class="field">
+          <div class="field highchair-field" id="highchair-field">
             <label>當天需要為「小小貴賓」準備兒童座椅嗎？ <span class="inline-en">Highchair Needed?</span></label>
             <div class="radio-row">
               <label><input type="radio" name="highchair" value="yes"> 需要的～ <span class="inline-en">(Yes, thanks~)</span></label>
@@ -981,6 +989,19 @@ footer{
     el.addEventListener('change',updateConditional);
   });
   updateConditional();
+
+  // 小朋友數目有1或以上先顯示兒童座椅問題，揀返0就隱藏
+  const childrenSelect=document.getElementById('children');
+  const highchairField=document.getElementById('highchair-field');
+  function updateHighchairField(){
+    if(parseInt(childrenSelect.value,10)>=1){
+      highchairField.classList.remove('hidden');
+    }else{
+      highchairField.classList.add('hidden');
+    }
+  }
+  childrenSelect.addEventListener('change',updateHighchairField);
+  updateHighchairField();
 
   form.addEventListener('submit',e=>{
     e.preventDefault();
