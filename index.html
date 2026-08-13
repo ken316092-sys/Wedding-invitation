@@ -414,6 +414,11 @@ section > *:not(.floral){position:relative;z-index:1;}
 .highchair-field.hidden{
   max-height:0;opacity:0;margin:0;pointer-events:none;
 }
+.field-error{
+  display:none;margin-top:8px;
+  font-size:var(--font-size-cn);color:#a13d3d;letter-spacing:.05em;
+}
+.field-error.show{display:block;}
 .rsvp-btn{
   width:100%;padding:15px;border:none;cursor:pointer;
   background:var(--purple);color:var(--white);
@@ -750,8 +755,20 @@ footer{
     <div class="rsvp-card">
       <form id="rsvp-form">
         <div class="field">
-          <label for="name">你的名字 <span class="inline-en">Name</span></label>
-          <input type="text" id="name" required maxlength="100" placeholder="請輸入姓名 / Please enter your name">
+          <label for="name">
+            你的全名 <span class="inline-en">Full Name</span>
+            <span class="en-sub">麻煩寫全名喔～怕同名認錯人！<br>Full name please, so we don't mix you up!</span>
+          </label>
+          <input type="text" id="name" required maxlength="100" placeholder="例如：陳大文 Karen Chan">
+        </div>
+
+        <div class="field">
+          <label>你是哪一方的親友？ <span class="inline-en">Whose Side?</span></label>
+          <div class="radio-row">
+            <label><input type="radio" name="side" value="groom" required> 男方 <span class="inline-en">Ken</span></label>
+            <label><input type="radio" name="side" value="bride"> 女方 <span class="inline-en">Vanessa</span></label>
+            <label><input type="radio" name="side" value="both"> 兩邊都認識 <span class="inline-en">Both</span></label>
+          </div>
         </div>
 
         <div class="field">
@@ -768,12 +785,11 @@ footer{
 
         <div class="rsvp-conditional" id="rsvp-conditional">
           <div class="field">
-            <label>太好了！那當天會有多少位大小朋友一起來玩？ <span class="en-sub">Awesome! How many guests will be joining the fun?</span></label>
+            <label>那當天會有多少位大小朋友一起來玩？（記得連你自己一起算進去！） <span class="en-sub">How many guests will be joining the fun? (Remember to count yourself in!)</span></label>
             <div class="select-row">
               <div class="select-col">
                 <span class="select-caption">大朋友數目 <span class="inline-en">Adults</span></span>
                 <select id="adults">
-                  <option value="0">0</option>
                   <option value="1" selected>1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
@@ -806,11 +822,12 @@ footer{
           </div>
 
           <div class="field highchair-field" id="highchair-field">
-            <label>當天需要為「小小貴賓」準備兒童座椅嗎？ <span class="inline-en">Highchair Needed?</span></label>
+            <label>當天需要為「小小貴賓」準備兒童餐椅嗎？ <span class="inline-en">Highchair Needed?</span></label>
             <div class="radio-row">
               <label><input type="radio" name="highchair" value="yes"> 需要的～ <span class="inline-en">(Yes, thanks~)</span></label>
-              <label><input type="radio" name="highchair" value="no" checked> 不用喔～ <span class="inline-en">(No, they're good~)</span></label>
+              <label><input type="radio" name="highchair" value="no"> 不用喔～ <span class="inline-en">(No, they're good~)</span></label>
             </div>
+            <div class="field-error" id="highchair-error">麻煩幫我們揀一個喔～ <span class="inline-en">Please pick one~</span></div>
           </div>
         </div>
 
@@ -990,23 +1007,36 @@ footer{
   });
   updateConditional();
 
-  // 小朋友數目有1或以上先顯示兒童座椅問題，揀返0就隱藏
+  // 小朋友數目有1或以上先顯示兒童餐椅問題，揀返0就隱藏
   const childrenSelect=document.getElementById('children');
   const highchairField=document.getElementById('highchair-field');
+  const highchairError=document.getElementById('highchair-error');
+
+  // 問題有冇真係問過賓客（要出席 + 有小朋友），冇問過就唔應該當佢答咗
+  function highchairAsked(){
+    const attendEl=form.querySelector('input[name="attend"]:checked');
+    const attending=!(attendEl && attendEl.value==='no');
+    return attending && parseInt(childrenSelect.value,10)>=1;
+  }
   function updateHighchairField(){
     if(parseInt(childrenSelect.value,10)>=1){
       highchairField.classList.remove('hidden');
     }else{
       highchairField.classList.add('hidden');
+      highchairError.classList.remove('show');
     }
   }
   childrenSelect.addEventListener('change',updateHighchairField);
+  form.querySelectorAll('input[name="highchair"]').forEach(el=>{
+    el.addEventListener('change',()=>highchairError.classList.remove('show'));
+  });
   updateHighchairField();
 
   form.addEventListener('submit',e=>{
     e.preventDefault();
 
     const name=document.getElementById('name').value.trim();
+    const sideEl=form.querySelector('input[name="side"]:checked');
     const attendEl=form.querySelector('input[name="attend"]:checked');
     const highchairEl=form.querySelector('input[name="highchair"]:checked');
     const isAttending=!(attendEl && attendEl.value==='no');
@@ -1019,12 +1049,23 @@ footer{
       return;
     }
 
+    // 有小朋友就一定要答兒童餐椅（唔用HTML required，因為個欄位隱藏嗰陣會令瀏覽器報錯）
+    if(highchairAsked() && !highchairEl){
+      highchairError.classList.add('show');
+      highchairField.scrollIntoView({block:'center',behavior:'smooth'});
+      return;
+    }
+
+    // 寫入Sheet時轉做中文標籤，方便排枱時直接掃描
+    const sideLabels={groom:'男方 Ken',bride:'女方 Vanessa',both:'兩邊都認識'};
+
     const payload={
       name:name.slice(0,100),
+      side:sideEl?(sideLabels[sideEl.value]||sideEl.value):'',
       attend:attendEl?attendEl.value:'',
       adults:adults,
       children:children,
-      highchair:isAttending?(highchairEl?highchairEl.value:''):''
+      highchair:highchairAsked()?(highchairEl?highchairEl.value:''):''
     };
 
     submitBtn.disabled=true;
